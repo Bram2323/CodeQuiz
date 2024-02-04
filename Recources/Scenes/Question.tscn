@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://chd8t6djg3lxc"]
+
+[ext_resource type="Theme" uid="uid://dx20ujswijwdu" path="res://Recources/Themes/Question.tres" id="1_ok0xw"]
+[ext_resource type="PackedScene" uid="uid://cvew8xa8fbv5v" path="res://Recources/Scenes/CodeSegment.tscn" id="2_c6rff"]
+[ext_resource type="PackedScene" uid="uid://fdfbttw1ekj4" path="res://Recources/Scenes/TextSegment.tscn" id="2_mdooy"]
+[ext_resource type="Script" path="res://Scripts/QuestionGenerator.cs" id="2_q1qaw"]
+[ext_resource type="PackedScene" uid="uid://p5sddnimjc12" path="res://Recources/Scenes/TitleSegment.tscn" id="3_2w7im"]
+[ext_resource type="PackedScene" uid="uid://c5kmdcwof1euy" path="res://Recources/Scenes/ListAnswer.tscn" id="6_4g3pk"]
+
+[node name="Question" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VPaddingContainer" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopPadding" type="Control" parent="Scroll/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="HPaddingContainer" type="HBoxContainer" parent="Scroll/VPaddingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="ContentContainer" type="VBoxContainer" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_ok0xw")
+script = ExtResource("2_q1qaw")
+TitleSegment = ExtResource("3_2w7im")
+TextSegment = ExtResource("2_mdooy")
+CodeSegment = ExtResource("2_c6rff")
+ListAnswer = ExtResource("6_4g3pk")
+
+[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="BottomPadding" type="Control" parent="Scroll/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2

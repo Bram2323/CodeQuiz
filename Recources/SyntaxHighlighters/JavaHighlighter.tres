@@ -1,0 +1,7 @@
+[gd_resource type="SyntaxHighlighter" load_steps=2 format=3 uid="uid://uualf0bc42i8"]
+
+[ext_resource type="Script" path="res://Scripts/JavaHighlighter.cs" id="1_q348s"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_q348s")

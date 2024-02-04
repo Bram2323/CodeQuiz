@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://fdfbttw1ekj4"]
+
+[ext_resource type="Script" path="res://Scripts/Segments/TextSegment.cs" id="1_tm4nn"]
+
+[node name="TextSegment" type="RichTextLabel"]
+clip_contents = false
+bbcode_enabled = true
+text = "This is a text label with some text on it!"
+fit_content = true
+script = ExtResource("1_tm4nn")

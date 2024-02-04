@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvew8xa8fbv5v"]
+
+[ext_resource type="Script" path="res://Scripts/Segments/CodeSegment.cs" id="1_nq5tq"]
+[ext_resource type="SyntaxHighlighter" uid="uid://uualf0bc42i8" path="res://Recources/SyntaxHighlighters/JavaHighlighter.tres" id="2_bps76"]
+
+[node name="CodeSegment" type="PanelContainer" node_paths=PackedStringArray("codeEdit")]
+script = ExtResource("1_nq5tq")
+codeEdit = NodePath("CodeEdit")
+syntaxHighlighter = ExtResource("2_bps76")
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+layout_mode = 2
+size_flags_vertical = 6
+text = "package java.util.Scanner;
+
+public class Test{
+	private int testPrimitive = 1;
+
+	public static void main(String[] args){
+		String testString = \"Dit is een test string!\";
+		System.out.println(testString + \"???\");
+
+		int a = 2323;
+		float b = 111.533f;
+		char c = a + b; //what?!?!?!?
+	}
+
+	protected boolean isThisAMethod(int something, Person somethingElse){
+		if (somethingElse == null) return false;
+		return true;
+	}
+}"
+scroll_fit_content_height = true
+highlight_all_occurrences = true
+highlight_current_line = true
+gutters_draw_line_numbers = true
+indent_use_spaces = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
