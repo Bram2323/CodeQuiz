@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://chd8t6djg3lxc"]
+[gd_scene load_steps=12 format=3 uid="uid://chd8t6djg3lxc"]
 
 [ext_resource type="Script" path="res://Scripts/QuestionManager.cs" id="1_etir3"]
 [ext_resource type="Theme" uid="uid://dx20ujswijwdu" path="res://Recources/Themes/Question.tres" id="1_ok0xw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://lk0soqjthw6n" path="res://Recources/Scenes/Segments/LineSegment.tscn" id="8_glv7d"]
 [ext_resource type="PackedScene" uid="uid://dvqj6x8b7mic3" path="res://Recources/Scenes/Answers/MultiAnswer.tscn" id="9_du43l"]
 [ext_resource type="PackedScene" uid="uid://c437pmobdvihi" path="res://Recources/Scenes/Answers/SingleAnswer.tscn" id="10_xajyf"]
+[ext_resource type="PackedScene" uid="uid://46mfqvefr4ro" path="res://Recources/Scenes/Answers/LineAnswer.tscn" id="11_te3he"]
 
 [node name="Question" type="Panel" node_paths=PackedStringArray("QuestionGenerator", "NextButton", "PreviousButton")]
 anchors_preset = 15
@@ -62,6 +63,7 @@ LineSegment = ExtResource("8_glv7d")
 ListAnswer = ExtResource("6_4g3pk")
 MultiAnswer = ExtResource("9_du43l")
 SingleAnswer = ExtResource("10_xajyf")
+LineAnswer = ExtResource("11_te3he")
 
 [node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
 custom_minimum_size = Vector2(30, 0)
@@ -79,16 +81,16 @@ custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
 [node name="PreviousButton" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Previous"
+text = "Main Menu"
 
 [node name="NextButton" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
 size_flags_horizontal = 10
-text = "Next"
+text = "Check"
 
 [node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/QuestionButtons"]
 custom_minimum_size = Vector2(30, 0)

@@ -5,8 +5,8 @@ public record Segment(SegmentType Type, string Text)
 {
     public static Segment Deserialize(Dictionary data)
     {
-        string typeStr = data["type"].ToString();
-
+        string typeStr = "invalid";
+        if (data.ContainsKey("type")) typeStr = data["type"].ToString();
         if (!Enum.TryParse(typeStr, true, out SegmentType type)) type = SegmentType.Invalid;
 
         string text = "";

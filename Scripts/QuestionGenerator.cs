@@ -7,7 +7,7 @@ public partial class QuestionGenerator : Node
 	[Export]
 	PackedScene TitleSegment, TextSegment, CodeSegment, LineSegment;
 	[Export]
-	PackedScene ListAnswer, MultiAnswer, SingleAnswer;
+	PackedScene ListAnswer, MultiAnswer, SingleAnswer, LineAnswer;
 
 
 	List<Node> nodes = new();
@@ -38,8 +38,7 @@ public partial class QuestionGenerator : Node
 		Answer answer = question.Answer;
 		IAnswerNode answerNode = CreateAnswerFromType(answer.Type);
 
-		answerNode.SetAnswers(answer.Answers, answer.CaseSensitive);
-
+		answerNode?.SetAnswers(answer.Answers, answer.CaseSensitive);
 		currentAnswer = answerNode;
 	}
 
@@ -86,6 +85,7 @@ public partial class QuestionGenerator : Node
             AnswerType.List => CreateAnswer(ListAnswer),
             AnswerType.Multi => CreateAnswer(MultiAnswer),
             AnswerType.Single => CreateAnswer(SingleAnswer),
+            AnswerType.Line => CreateAnswer(LineAnswer),
             _ => null,
         };
     }

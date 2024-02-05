@@ -1,6 +1,4 @@
-
 using Godot.Collections;
-using System;
 using System.Collections.Generic;
 
 public record Question(string Title, Segment[] Segments, Answer Answer)
@@ -10,15 +8,22 @@ public record Question(string Title, Segment[] Segments, Answer Answer)
         string title = "";
         if (data.ContainsKey("title")) title = data["title"].ToString();
 
-        Array<Dictionary> segmentsData = data["segments"].AsGodotArray<Dictionary>();
         List<Segment> segments = new();
-        foreach (Dictionary segmentData in segmentsData)
+        if (data.ContainsKey("segments"))
         {
-            segments.Add(Segment.Deserialize(segmentData));
+            Array<Dictionary> segmentsData = data["segments"].AsGodotArray<Dictionary>();
+            foreach (Dictionary segmentData in segmentsData)
+            {
+                segments.Add(Segment.Deserialize(segmentData));
+            }
         }
 
-        Dictionary answerData = data["answer"].AsGodotDictionary();
-        Answer answer = Answer.Deserialize(answerData);
+        Answer answer = new(AnswerType.Invalid, System.Array.Empty<AnswerOption>(), false);
+        if (data.ContainsKey("answer"))
+        {
+            Dictionary answerData = data["answer"].AsGodotDictionary();
+            answer = Answer.Deserialize(answerData);
+        }
 
         return new Question(title, segments.ToArray(), answer);
     }

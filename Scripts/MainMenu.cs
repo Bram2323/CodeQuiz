@@ -23,12 +23,12 @@ public partial class MainMenu : Node
     }
 
 
-    void Load()
+    private void Load()
     {
         FileDialog.PopupCentered();
     }
 
-    void LoadQuestion(Question question)
+    private void LoadQuestion(Question question)
     {
         QuestionManager questionManager = QuestionManager.Instantiate<QuestionManager>();
         GetTree().Root.AddChild(questionManager);
@@ -37,7 +37,7 @@ public partial class MainMenu : Node
         QueueFree();
     }
 
-    void FileSelected(string path)
+    private void FileSelected(string path)
     {
         if (!File.Exists(path))
         {
@@ -59,9 +59,10 @@ public partial class MainMenu : Node
 
             LoadQuestion(question);
         }
-        catch
+        catch (Exception ex)
         {
             PopupMessage("Invalid question json!", "Something went wrong!");
+            GD.PrintErr(ex);
         }
     }
 

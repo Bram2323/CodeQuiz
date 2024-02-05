@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbbk0llcc5xif"]
+
+[ext_resource type="Script" path="res://Scripts/InputField.cs" id="1_r8ia8"]
+[ext_resource type="PackedScene" uid="uid://dgsfoddewdspd" path="res://Recources/Scenes/BasicButton.tscn" id="2_c21cu"]
+
+[node name="InputField" type="VBoxContainer" node_paths=PackedStringArray("LineEdit", "TextButton")]
+script = ExtResource("1_r8ia8")
+LineEdit = NodePath("LineEdit")
+TextButton = NodePath("TextButton")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextButton" parent="." instance=ExtResource("2_c21cu")]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+text = "?"

@@ -1,0 +1,15 @@
+{
+	"title": "What is the range of a byte?",
+	"answer":{
+		"type": "line",
+		"caseSensitive": false,
+		"answers":[
+			{
+				"text": "-128",
+			},
+			{
+				"text": "127",
+			},
+		]
+	}
+}

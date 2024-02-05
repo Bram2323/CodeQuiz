@@ -49,9 +49,9 @@ public partial class ListAnswer : Node, IAnswerNode
 			Button button = buttonData.Item1;
 			string answer = buttonData.Item2;
 
-			if (!button.ButtonPressed)
+			if (!button.Disabled)
             {
-                button.Disabled = true;
+                button.ButtonPressed = true;
 				button.Text = answer;
             }
 		}
@@ -73,11 +73,11 @@ public partial class ListAnswer : Node, IAnswerNode
 
 			if (buttonAnswer == text)
 			{
-				button.ButtonPressed = true;
+				button.Disabled = true;
 				button.Text = buttonData.Item2;
 			}
 
-			if (button.ButtonPressed) guessedAnswers++;
+			if (button.Disabled) guessedAnswers++;
 		}
 
 		if (guessedAnswers == buttons.Count) answeredAll = true;
