@@ -22,26 +22,45 @@ public partial class ListAnswer : Node, IAnswerNode
     }
 
 
-    public void SetAnswers(string[] answers, bool caseSensitive)
+    public void SetAnswers(AnswerOption[] answers, bool caseSensitive)
 	{
 		ClearButtons();
 
-		foreach (string answer in answers)
+		foreach (AnswerOption answer in answers)
 		{
 			Button button = ButtonPrefab.Instantiate<Button>();
 			ButtonParent.AddChild(button);
 
 			button.MouseFilter = Control.MouseFilterEnum.Ignore;
+			button.FocusMode = Control.FocusModeEnum.None;
 			button.ToggleMode = true;
 			button.Text = "?";
 
-            buttons.Add((button, answer));
+            buttons.Add((button, answer.Text));
         }
+	}
+
+	public void ShowAnswers()
+	{
+		AnswerField.Editable = false;
+
+		foreach ((Button, string) buttonData in buttons)
+		{
+			Button button = buttonData.Item1;
+			string answer = buttonData.Item2;
+
+			if (!button.ButtonPressed)
+            {
+                button.Disabled = true;
+				button.Text = answer;
+            }
+		}
 	}
 
 
 	void OnUserInput(string text)
 	{
+		text = text.Trim();
 		if (!caseSensitive) text = text.ToLower();
 
 		int guessedAnswers = 0;

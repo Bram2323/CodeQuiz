@@ -16,7 +16,6 @@ public partial class CodeSegment : Node, ISegmentNode
     public void SetText(string text)
 	{
 		codeEdit.Text = text;
-		codeEdit.HighlightCurrentLine = false;
 		//codeEdit.Editable = false;
 	}
 }

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://lk0soqjthw6n"]
+
+[ext_resource type="Script" path="res://Scripts/Segments/DummySegment.cs" id="1_hj5gx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oerbx"]
+bg_color = Color(0.392157, 0.392157, 0.392157, 1)
+expand_margin_left = 15.0
+expand_margin_right = 15.0
+
+[node name="LineSegment" type="Control"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_hj5gx")
+
+[node name="Line" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oerbx")

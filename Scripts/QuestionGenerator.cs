@@ -5,51 +5,30 @@ using System.Collections.Generic;
 public partial class QuestionGenerator : Node
 {
 	[Export]
-	PackedScene TitleSegment, TextSegment, CodeSegment;
+	PackedScene TitleSegment, TextSegment, CodeSegment, LineSegment;
 	[Export]
-	PackedScene ListAnswer;
+	PackedScene ListAnswer, MultiAnswer, SingleAnswer;
 
 
 	List<Node> nodes = new();
-
-    public override void _Ready()
-    {
-		Segment[] segments = new Segment[] {
-            new(SegmentType.Code, "void test(){\n    boolean test = false;\n}"),
-            new(SegmentType.Text, "This is some text!"),
-			new(SegmentType.Code, "void test(){\n    boolean test = false;\n}"),
-		};
-		Answer answer = new(AnswerType.List, new string[] {
-			"byte",
-			"short",
-			"int",
-			"long",
-			"float",
-			"double",
-			"char",
-			"boolean",
-		}, false);
-		Question question = new("Test Question", segments, answer);
-
-		LoadQuestion(question);
-    }
+	IAnswerNode currentAnswer;
 
 
 	public void LoadQuestion(Question question)
 	{
 		ClearQuestion();
 
-		ISegmentNode title = CreateSegmentFromType(SegmentType.Title);
-		if (!string.IsNullOrWhiteSpace(question.Title)) title.SetText(question.Title);
-		else title.SetText("Question:");
+		if (!string.IsNullOrWhiteSpace(question.Title))
+        {
+            CreateSegmentFromType(SegmentType.Title).SetText(question.Title);
+		}
 
         foreach (Segment segment in question.Segments)
 		{
 			ISegmentNode segmentNode = CreateSegmentFromType(segment.Type);
 			if (segmentNode == null)
 			{
-				segmentNode = CreateSegmentFromType(SegmentType.Text);
-				segmentNode.SetText("Unsuported segment type!");
+				CreateSegmentFromType(SegmentType.Text).SetText("Unsuported segment type!");
 				continue;
 			}
 
@@ -60,12 +39,19 @@ public partial class QuestionGenerator : Node
 		IAnswerNode answerNode = CreateAnswerFromType(answer.Type);
 
 		answerNode.SetAnswers(answer.Answers, answer.CaseSensitive);
+
+		currentAnswer = answerNode;
 	}
 
 	public void ClearQuestion()
 	{
 		foreach (Node node in nodes) node.QueueFree();
 		nodes.Clear();
+	}
+
+	public void ShowAnswers()
+	{
+		currentAnswer?.ShowAnswers();
 	}
 
 
@@ -76,6 +62,7 @@ public partial class QuestionGenerator : Node
 			SegmentType.Title => CreateSegment(TitleSegment),
             SegmentType.Text => CreateSegment(TextSegment),
             SegmentType.Code => CreateSegment(CodeSegment),
+            SegmentType.Line => CreateSegment(LineSegment),
             _ => null,
         };
     }
@@ -97,6 +84,8 @@ public partial class QuestionGenerator : Node
         return answerType switch
         {
             AnswerType.List => CreateAnswer(ListAnswer),
+            AnswerType.Multi => CreateAnswer(MultiAnswer),
+            AnswerType.Single => CreateAnswer(SingleAnswer),
             _ => null,
         };
     }

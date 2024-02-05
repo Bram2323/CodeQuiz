@@ -1,5 +1,8 @@
 ﻿
 public enum AnswerType
 {
-    List
+    Invalid,
+    List,
+    Multi,
+    Single,
 }

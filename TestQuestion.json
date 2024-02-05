@@ -1,0 +1,47 @@
+{
+	"title": "This is a test question!",
+	"segments": [
+		{
+			"type": "text",
+			"text": "What are the 8 primitive types?"
+		},
+		{
+			"type": "line"
+		},
+		{
+			"type": "code",
+			"text": "public static void main(String[] args){\n    boolean test = true;\n}"
+		}
+	],
+	"answer":{
+		"type": "list",
+		"caseSensitive": false,
+		"answers":[
+			{
+				"text": "byte",
+			},
+			{
+				"text": "short",
+			},
+			{
+				"text": "int",
+			},
+			{
+				"text": "long",
+			},
+			{
+				"text": "float",
+			},
+			{
+				"text": "double",
+			},
+			{
+				"text": "char",
+			},
+			{
+				"text": "boolean",
+				"correct": true,
+			}
+		]
+	}
+}

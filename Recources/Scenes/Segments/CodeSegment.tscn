@@ -11,6 +11,7 @@ syntaxHighlighter = ExtResource("2_bps76")
 [node name="CodeEdit" type="CodeEdit" parent="."]
 layout_mode = 2
 size_flags_vertical = 6
+focus_mode = 1
 text = "package java.util.Scanner;
 
 public class Test{
@@ -30,9 +31,9 @@ public class Test{
 		return true;
 	}
 }"
+editable = false
 scroll_fit_content_height = true
 highlight_all_occurrences = true
-highlight_current_line = true
 gutters_draw_line_numbers = true
 indent_use_spaces = true
 indent_automatic = true

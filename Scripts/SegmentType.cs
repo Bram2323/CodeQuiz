@@ -1,7 +1,9 @@
 
 public enum SegmentType
 {
+	Invalid,
 	Title,
 	Text,
-	Code
+	Code,
+	Line,
 }
