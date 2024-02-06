@@ -19,13 +19,15 @@ Every segment must have:
 - "type" - Segment Type
 
 #### Segment Types
-- "text" - A rich text segment
+- "text" - A rich text label
+- "title" - A bigger rich text label with a line underneath
 - "code" - A code block with syntax highlighting
 - "line" - A thin line (Ignores the "text" field)
 ---
 ### Answer
 Every answer can have:
-- "caseSensitive" - bool (false when not specified)
+- "caseSensitive" - bool (false if not specified)
+
 Every answer must have:
 - "type" - Answer Type
 - "answers" - Answer Option Array
