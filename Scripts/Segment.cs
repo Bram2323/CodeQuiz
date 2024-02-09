@@ -3,11 +3,10 @@ using System;
 
 public record Segment(SegmentType Type, string Text)
 {
-    public static Segment Deserialize(Dictionary data)
+    public static Segment GetFromDictionary(Dictionary data)
     {
-        string typeStr = "invalid";
-        if (data.ContainsKey("type")) typeStr = data["type"].ToString();
-        if (!Enum.TryParse(typeStr, true, out SegmentType type)) type = SegmentType.Invalid;
+        if (!data.ContainsKey("type")) throw new ArgumentException("Segement doesnt have a type!");
+        if (!Enum.TryParse(data["type"].ToString(), true, out SegmentType type)) throw new ArgumentException("Segement has invalid type!");
 
         string text = "";
         if (data.ContainsKey("text")) text = data["text"].ToString();

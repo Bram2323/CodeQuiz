@@ -4,14 +4,11 @@ using System.Collections.Generic;
 
 public record Answer(AnswerType Type, AnswerOption[] Answers, bool CaseSensitive)
 {
-    public static Answer Deserialize(Dictionary data)
+    public static Answer GetFromDictionary(Dictionary data)
     {
-        string typeStr = "invalid";
-        if (data.ContainsKey("type")) typeStr = data["type"].ToString();
-        if (!Enum.TryParse(typeStr, true, out AnswerType type)) type = AnswerType.Invalid;
+        if (!data.ContainsKey("type")) throw new ArgumentException("Answer doesnt have a type!");
+        if (!Enum.TryParse(data["type"].ToString(), true, out AnswerType type)) throw new ArgumentException("Answer has invalid type!");
 
-        bool caseSensitive = false;
-        if (data.ContainsKey("caseSensitive")) caseSensitive = data["caseSensitive"].AsBool();
 
         List<AnswerOption> answerOptions = new();
         if (data.ContainsKey("answers"))
@@ -19,9 +16,14 @@ public record Answer(AnswerType Type, AnswerOption[] Answers, bool CaseSensitive
             Array<Dictionary> answerOptionsData = data["answers"].AsGodotArray<Dictionary>();
             foreach (Dictionary answerOptionData in answerOptionsData)
             {
-                answerOptions.Add(AnswerOption.Deserialize(answerOptionData));
+                answerOptions.Add(AnswerOption.GetFromDictionary(answerOptionData));
             }
         }
+
+
+        bool caseSensitive = false;
+        if (data.ContainsKey("caseSensitive")) caseSensitive = data["caseSensitive"].AsBool();
+
 
         return new(type, answerOptions.ToArray(), caseSensitive);
     }

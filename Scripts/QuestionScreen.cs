@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class QuestionGenerator : Node
+public partial class QuestionScreen : Control
 {
 	[Export]
 	PackedScene TitleSegment, TextSegment, CodeSegment, LineSegment;
@@ -52,6 +52,30 @@ public partial class QuestionGenerator : Node
 	{
 		currentAnswer?.ShowAnswers();
 	}
+
+	public bool HasAnswered()
+	{
+		if (currentAnswer == null) return false;
+		return currentAnswer.HasAnswered();
+	}
+
+	public bool HasCorrectlyAnswered()
+	{
+        if (currentAnswer == null) return true;
+		return currentAnswer.HasCorrectlyAnswered();
+    }
+
+	public object GetUserAnswers()
+	{
+		if (currentAnswer == null) return null;
+		return currentAnswer.GetUserAnswers();
+	}
+
+	public void SetUserAnswers(object data)
+	{
+		currentAnswer?.SetUserAnswers(data);
+	}
+
 
 
 	ISegmentNode CreateSegmentFromType(SegmentType segmentType)

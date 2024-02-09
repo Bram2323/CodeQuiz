@@ -1,11 +1,12 @@
 ﻿using Godot.Collections;
+using System;
 
 public record AnswerOption(string Text, bool Correct)
 {
-    public static AnswerOption Deserialize(Dictionary data)
+    public static AnswerOption GetFromDictionary(Dictionary data)
     {
-        string text = "";
-        if (data.ContainsKey("text")) text = data["text"].AsString();
+        if (!data.ContainsKey("text")) throw new ArgumentException("Answer option didnt have any text!");
+        string text = data["text"].AsString();
 
         bool correct = false;
         if (data.ContainsKey("correct")) correct = data["correct"].AsBool();

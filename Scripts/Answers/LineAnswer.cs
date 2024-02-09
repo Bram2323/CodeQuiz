@@ -1,5 +1,8 @@
-using Godot;
+ using Godot;
+using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
 
 public partial class LineAnswer : Node, IAnswerNode
 {
@@ -37,7 +40,16 @@ public partial class LineAnswer : Node, IAnswerNode
     }
 
 
-	public bool HasCorrectlyAnswered()
+    public bool HasAnswered()
+    {
+		foreach (InputField input in inputs)
+		{
+			if (!string.IsNullOrWhiteSpace(input.GetText().Trim())) return true;
+		}
+        return false;
+    }
+
+    public bool HasCorrectlyAnswered()
 	{
 		bool correct = true;
 
@@ -47,6 +59,30 @@ public partial class LineAnswer : Node, IAnswerNode
         }
 
         return correct;
+	}
+
+
+	public object GetUserAnswers()
+	{
+		string[] answers = new string[inputs.Count];
+
+		for (int i = 0; i < inputs.Count; i++)
+		{
+			answers[i] = inputs[i].GetText();
+		}
+
+		return answers;
+	}
+
+	public void SetUserAnswers(object data)
+	{
+		if (data is not string[] answers) return;
+		if (answers.Length != inputs.Count) return;
+
+		for (int i = 0;i < inputs.Count;i++)
+		{
+			inputs[i].SetText(answers[i]);
+		}
 	}
 
 

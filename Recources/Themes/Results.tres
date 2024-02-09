@@ -1,0 +1,126 @@
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://cjb1h62eu4kmt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pj81f"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dw626"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vacbn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xjb8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.54902, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st30y"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.470588, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaq0u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.352941, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3cdl"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.54902, 0, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ywy8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.470588, 0, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_omu7k"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.352941, 0, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_duwst"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(2.06962e-06, 0.394387, 0.526916, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrftj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.392157, 0.223529, 0.223529, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a51di"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.235294, 0.101961, 0.101961, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj4gx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.313726, 0, 0, 1)
+corner_detail = 5
+
+[resource]
+Button/font_sizes/font_size = 18
+Button/styles/hover = SubResource("StyleBoxFlat_pj81f")
+Button/styles/normal = SubResource("StyleBoxFlat_dw626")
+Button/styles/pressed = SubResource("StyleBoxFlat_vacbn")
+Correct/base_type = &"Button"
+Correct/styles/hover = SubResource("StyleBoxFlat_8xjb8")
+Correct/styles/normal = SubResource("StyleBoxFlat_st30y")
+Correct/styles/pressed = SubResource("StyleBoxFlat_iaq0u")
+Incorrect/base_type = &"Button"
+Incorrect/styles/hover = SubResource("StyleBoxFlat_g3cdl")
+Incorrect/styles/normal = SubResource("StyleBoxFlat_7ywy8")
+Incorrect/styles/pressed = SubResource("StyleBoxFlat_omu7k")
+Label/font_sizes/font_size = 20
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_duwst")
+Unanswered/base_type = &"Button"
+Unanswered/styles/hover = SubResource("StyleBoxFlat_wrftj")
+Unanswered/styles/normal = SubResource("StyleBoxFlat_a51di")
+Unanswered/styles/pressed = SubResource("StyleBoxFlat_uj4gx")

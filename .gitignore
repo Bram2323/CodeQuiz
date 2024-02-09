@@ -3,6 +3,7 @@
 .git/
 .vs/
 addons/
+Builds/
 
 # Godot-specific ignores
 .import/

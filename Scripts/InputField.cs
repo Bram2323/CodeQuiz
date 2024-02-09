@@ -34,4 +34,14 @@ public partial class InputField : Node
         if (caseSensitive) return correctAnswer == LineEdit.Text.Trim();
         else return correctAnswer.ToLower() == LineEdit.Text.Trim().ToLower();
     }
+
+    public string GetText()
+    {
+        return LineEdit.Text;
+    }
+
+    public void SetText(string text)
+    {
+        LineEdit.Text = text;
+    }
 }

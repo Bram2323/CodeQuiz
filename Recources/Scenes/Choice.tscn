@@ -18,6 +18,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_type_variation = &"ToggleButton"
 toggle_mode = true
+action_mode = 0
 
 [node name="MiddlePadding" type="Control" parent="."]
 custom_minimum_size = Vector2(20, 0)

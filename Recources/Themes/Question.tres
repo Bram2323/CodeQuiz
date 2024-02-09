@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://dx20ujswijwdu"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://dx20ujswijwdu"]
 
 [ext_resource type="FontFile" uid="uid://b8j0kq4rj6gov" path="res://Recources/Fonts/JetbrainsMono/ttf/JetBrainsMonoNL-Medium.ttf" id="1_roikk"]
 
@@ -40,6 +40,8 @@ corner_radius_bottom_left = 7
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l7hna"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6syx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bduvw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_465fm"]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
@@ -234,6 +236,7 @@ CodeEdit/styles/focus = SubResource("StyleBoxEmpty_t3eef")
 CodeEdit/styles/normal = SubResource("StyleBoxEmpty_l7hna")
 CodeEdit/styles/read_only = SubResource("StyleBoxEmpty_h6syx")
 LineEdit/font_sizes/font_size = 20
+Panel/styles/panel = SubResource("StyleBoxFlat_bduvw")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_465fm")
 RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/bold_italics_font_size = 20

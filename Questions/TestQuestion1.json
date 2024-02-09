@@ -1,18 +1,5 @@
 {
-	"title": "This is a test question!",
-	"segments": [
-		{
-			"type": "text",
-			"text": "What are the 8 primitive types?"
-		},
-		{
-			"type": "line"
-		},
-		{
-			"type": "code",
-			"text": "public static void main(String[] args){\n    boolean test = true;\n}"
-		}
-	],
+	"title": "What are the 8 primitive types?",
 	"answer":{
 		"type": "list",
 		"caseSensitive": false,
@@ -40,7 +27,7 @@
 			},
 			{
 				"text": "boolean",
-				"correct": true,
+				"correct": "mmmm",
 			}
 		]
 	}
