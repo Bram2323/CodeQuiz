@@ -6,9 +6,9 @@ You can use the built in editor or any text editor to create questions
 ## Question Format
 Code Quiz uses a custom .question format which is mostly plain text with some styling:
 ### Styling:
-`#` - Creates a heading with a line underneath
-`---` - Creates a line across the screen
-```` ``` ```` - Starts or ends a code block with syntax highlighting (Currently only for java)
+- `#` - Creates a heading with a line underneath
+- `---` - Creates a line across the screen
+- ```` ``` ```` - Starts or ends a code block with syntax highlighting (Currently only for java)
 
 `=== [type]` - Starts a answer block with a type
 | Type | Description         |
@@ -19,10 +19,11 @@ Code Quiz uses a custom .question format which is mostly plain text with some st
 |`Single`|Select any of the correct answers|
 
 In the answer block you can define answers like this:
--- `+` - A correct answer that is not case sensitive
--- `++` - A correct answer that is case sensitive
--- `-` - An incorrect answer that is not case sensitive
--- `--` - An incorrect answer that is case sensitive
+- `+` - A correct answer that is not case sensitive
+- `++` - A correct answer that is case sensitive
+- `-` - An incorrect answer that is not case sensitive
+- `--` - An incorrect answer that is case sensitive
+
 `===` - Ends an answer block
 
 ### Example:
@@ -38,7 +39,7 @@ public class Loops {
 	    System.out.println(j);
     }
 }
-```-
+```
 In the file "Loops.java"
 
 === Single
