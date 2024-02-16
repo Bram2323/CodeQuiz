@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkwkdf11k2yvr"]
+
+[ext_resource type="Script" path="res://Scripts/Choice.cs" id="1_h4vss"]
+
+[node name="Choice" type="HBoxContainer" node_paths=PackedStringArray("ToggleButton", "TextButton")]
+script = ExtResource("1_h4vss")
+ToggleButton = NodePath("Toggle")
+TextButton = NodePath("Text")
+
+[node name="LeftPadding" type="Control" parent="."]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Toggle" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"ToggleButton"
+toggle_mode = true
+action_mode = 0
+
+[node name="MiddlePadding" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Text" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+text_overrun_behavior = 3
+
+[node name="RightPadding" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2

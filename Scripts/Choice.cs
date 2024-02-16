@@ -2,11 +2,13 @@ using Godot;
 
 public partial class Choice : Node
 {
-	[Export]
-	Button ToggleButton, TextButton;
+    [Export]
+    Button ToggleButton, TextButton;
 
     public delegate void ChoiceToggled(Choice choice, bool enabled);
     public event ChoiceToggled Toggled;
+
+    bool round = false;
 
 
     public override void _Ready()
@@ -16,9 +18,15 @@ public partial class Choice : Node
 
 
     public void SetText(string text)
-	{
-		TextButton.Text = text;
-	}
+    {
+        TextButton.Text = text;
+    }
+
+    public void SetRound(bool enabled)
+    {
+        round = enabled;
+        UpdateTheme();
+    }
 
     public bool IsPressed()
     {
@@ -27,8 +35,8 @@ public partial class Choice : Node
 
     public void SetPressed(bool pressed)
     {
-        //ToggleButton.ButtonPressed = pressed;
         ToggleButton.ButtonPressed = pressed;
+        UpdateTheme();
     }
 
     public void SetDisabled(bool disabled)
@@ -45,7 +53,18 @@ public partial class Choice : Node
     {
         //TextButton.ButtonPressed = toggledOn;
         Toggled?.Invoke(this, toggledOn);
-        if (toggledOn) ToggleButton.ThemeTypeVariation = "ToggleButtonActive";
-        else ToggleButton.ThemeTypeVariation = "ToggleButton";
+        UpdateTheme();
+    }
+
+    void UpdateTheme()
+    {
+        string theme;
+
+        if (IsPressed()) theme = "ToggleButtonActive";
+        else theme = "ToggleButton";
+
+        if (round) theme += "Round";
+
+        ToggleButton.ThemeTypeVariation = theme;
     }
 }

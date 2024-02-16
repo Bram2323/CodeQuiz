@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class DummySegment : Node, ISegmentNode
+public partial class DummySegment : SegmentNode
 {
-	public void SetText(string text) { }
+    public override void SetText(string text) { }
 }

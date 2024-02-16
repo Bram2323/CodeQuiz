@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 public partial class ResultsScreen : Control
 {
-	[Export]
-	PackedScene EntryPrefab;
+    [Export]
+    PackedScene EntryPrefab;
 
-	[Export]
-	Label Amount, Total, NumberText;
-	[Export]
-	Button ShowAnswersButton;
+    [Export]
+    Label Amount, Total, NumberText;
+    [Export]
+    Button ShowAnswersButton;
 
-	List<ResultEntry> resultsEntries = new();
-	Action ShowAnswersCallback;
+    List<ResultEntry> resultsEntries = new();
+    Action ShowAnswersCallback;
 
 
     public override void _Ready()
@@ -21,62 +21,62 @@ public partial class ResultsScreen : Control
         ShowAnswersButton.Pressed += ShowAnswers;
     }
 
-    public void LoadQuestions(QuestionStatus[] questionsStatus, bool showAnswers, QuestionManager questionManager)
-	{
-		ClearEntries();
+    public void LoadQuestions(QuestionStatus[] questionsStatus, bool showAnswers, QuizManager questionManager)
+    {
+        ClearEntries();
 
-		int correct = 0;
-		int answered = 0;
+        int correct = 0;
+        int answered = 0;
 
-		ShowAnswersCallback = questionManager.AskToShowResults;
+        ShowAnswersCallback = questionManager.AskToShowResults;
 
-		for (int i = 0; i < questionsStatus.Length; i++)
-		{
-			QuestionStatus status = questionsStatus[i];
+        for (int i = 0; i < questionsStatus.Length; i++)
+        {
+            QuestionStatus status = questionsStatus[i];
 
-			if (status == QuestionStatus.Correct) correct++;
-			if (status != QuestionStatus.Unanswered) answered++;
+            if ((status & QuestionStatus.Correct) == QuestionStatus.Correct) correct++;
+            if ((status & QuestionStatus.Answered) != QuestionStatus.Answered) answered++;
 
-			ResultEntry entry = EntryPrefab.Instantiate<ResultEntry>();
+            ResultEntry entry = EntryPrefab.Instantiate<ResultEntry>();
 
-			AddChild(entry);
+            AddChild(entry);
 
-			entry.SetNumber(i + 1);
-			entry.SetStatus(status, showAnswers);
-			int question = i;
-			entry.SetButtonCallback(delegate { questionManager.LoadQuestion(question); });
+            entry.SetNumber(i + 1);
+            entry.SetStatus(status, showAnswers);
+            int question = i;
+            entry.SetButtonCallback(delegate { questionManager.LoadQuestion(question); });
 
-			resultsEntries.Add(entry);
-		}
+            resultsEntries.Add(entry);
+        }
 
 
-		MoveChild(ShowAnswersButton, -1);
+        MoveChild(ShowAnswersButton, -1);
 
-		if (showAnswers)
-		{
-			NumberText.Text = "Correct";
+        if (showAnswers)
+        {
+            NumberText.Text = "Correct";
             Amount.Text = correct.ToString();
         }
-		else
+        else
         {
             NumberText.Text = "Answered";
-			Amount.Text = answered.ToString();
+            Amount.Text = answered.ToString();
         }
-		Total.Text = questionsStatus.Length.ToString();
-	}
+        Total.Text = questionsStatus.Length.ToString();
+    }
 
-	void ShowAnswers()
-	{
-		ShowAnswersCallback?.Invoke();
-	}
+    void ShowAnswers()
+    {
+        ShowAnswersCallback?.Invoke();
+    }
 
     void ClearEntries()
-	{
-		foreach (ResultEntry entry in resultsEntries)
-		{
-			entry.QueueFree();
-		}
+    {
+        foreach (ResultEntry entry in resultsEntries)
+        {
+            entry.QueueFree();
+        }
 
-		resultsEntries.Clear();
-	}
+        resultsEntries.Clear();
+    }
 }

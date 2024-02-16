@@ -2,10 +2,10 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class QuestionManager : Node
+public partial class QuizManager : Node
 {
-	[Export]
-	QuestionScreen QuestionScreen;
+    [Export]
+    QuestionScreen QuestionScreen;
     [Export]
     ResultsScreen ResultsScreen;
 
@@ -21,7 +21,7 @@ public partial class QuestionManager : Node
     [Export]
     Button MainMenuButton, ResultsButton;
     [Export]
-	Button NextButton, PreviousButton;
+    Button NextButton, PreviousButton;
 
     Question currentQuestion;
 
@@ -30,7 +30,7 @@ public partial class QuestionManager : Node
     Question[] questions = Array.Empty<Question>();
     int currentIndex = 0;
 
-    Dictionary<Question, object> answers = new();
+    Dictionary<Question, object[]> answers = new();
     Dictionary<Question, QuestionStatus> questionStatuses = new();
 
 
@@ -61,7 +61,7 @@ public partial class QuestionManager : Node
 
         foreach (Question question in questions)
         {
-            questionStatuses[question] = QuestionStatus.Unanswered;
+            questionStatuses[question] = 0;
         }
 
         if (questions.Length == 0) return;
@@ -80,7 +80,7 @@ public partial class QuestionManager : Node
 
         SetResultsScreenVisible(false);
 
-        questionStatuses[question] = QuestionStatus.Unanswered;
+        questionStatuses[question] = 0;
 
         LoadQuestion(0);
     }
@@ -116,8 +116,11 @@ public partial class QuestionManager : Node
         if (currentQuestion == null || showAnswers) return;
 
         answers[currentQuestion] = QuestionScreen.GetUserAnswers();
-        if (!QuestionScreen.HasAnswered()) questionStatuses[currentQuestion] = QuestionStatus.Unanswered;
-        else questionStatuses[currentQuestion] = QuestionScreen.HasCorrectlyAnswered() ? QuestionStatus.Correct : QuestionStatus.Incorrect;
+
+        QuestionStatus status = 0;
+        if (QuestionScreen.HasAnswered()) status |= QuestionStatus.Answered;
+        if (QuestionScreen.HasCorrectlyAnswered()) status |= QuestionStatus.Correct;
+        questionStatuses[currentQuestion] = status;
     }
 
     void UpdateButtons()
@@ -141,7 +144,7 @@ public partial class QuestionManager : Node
 
         for (int i = 0; i < questions.Length; i++)
         {
-            if (questionStatuses[questions[i]] == QuestionStatus.Unanswered)
+            if ((questionStatuses[questions[i]] & QuestionStatus.Answered) != QuestionStatus.Answered)
             {
                 unansweredQuestions.Add(i + 1);
             }
@@ -154,8 +157,7 @@ public partial class QuestionManager : Node
     {
         if (UnansweredQuestions().Length == 0)
         {
-            ResultsConfirmation.DialogText = "Show quiz results?";
-            ResultsConfirmation.PopupCentered();
+            ShowResults();
             return;
         }
 
@@ -216,7 +218,7 @@ public partial class QuestionManager : Node
         if (!int.TryParse(indexString, out int index)) return;
         LoadQuestion(index - 1);
     }
-    
+
     void OnIndexFocusLost()
     {
         OnIndexEdit(IndexEdit.Text);

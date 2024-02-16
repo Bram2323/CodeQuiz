@@ -1,0 +1,19 @@
+# Wich lines can run?
+
+```
+public static void main(String... args){
+	int a, b, c, d, e, f = 5;
+	
+	a = b = e;
+	c = f;
+	a += b = 5;
+	d = 8 - f;
+}
+```
+
+=== Multi
+- a = b = e
++ c = f
+- a += b = 5
++ d = 8 - f
+===

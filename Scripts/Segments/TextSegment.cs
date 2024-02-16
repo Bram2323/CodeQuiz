@@ -1,10 +1,12 @@
 using Godot;
-using System;
 
-public partial class TextSegment : RichTextLabel, ISegmentNode
+public partial class TextSegment : SegmentNode
 {
-	public void SetText(string text)
-	{
-		Text = text;
-	}
+    [Export]
+    RichTextLabel label;
+
+    public override void SetText(string text)
+    {
+        label.Text = text;
+    }
 }

@@ -15,6 +15,7 @@ InputParent = NodePath("InputsPadding/Inputs")
 InputPrefab = ExtResource("2_gimjj")
 
 [node name="TopPadding" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
@@ -42,3 +43,12 @@ size_flags_horizontal = 13
 [node name="RightPadding" type="Control" parent="InputsPadding"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="MiddlePadding2" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="Line2" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mv2ih")

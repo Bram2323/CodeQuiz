@@ -1,26 +1,27 @@
 using Godot;
-using Godot.Collections;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 public partial class MainMenu : Node
 {
-	[Export]
-	Button LoadFileButton, LoadDirectoryButton;
+    [Export]
+    Button LoadFileButton, LoadDirectoryButton, CreateQuestionButton;
     [Export]
     FileDialog FileDialog;
     [Export]
     AcceptDialog AcceptDialog;
 
     [Export]
-    PackedScene QuestionManager;
+    PackedScene QuizManager;
+    [Export]
+    PackedScene QuestionCreator;
 
 
     public override void _Ready()
     {
         LoadFileButton.Pressed += LoadFile;
         LoadDirectoryButton.Pressed += LoadDirectory;
+        CreateQuestionButton.Pressed += LoadQuestionCreator;
         FileDialog.FileSelected += FileSelected;
         FileDialog.DirSelected += DirectorySelected;
     }
@@ -38,25 +39,43 @@ public partial class MainMenu : Node
         FileDialog.PopupCentered();
     }
 
+    private void LoadQuestionCreator()
+    {
+        CreateQuestionCreator();
+        QueueFree();
+    }
+
 
     private void LoadQuestion(Question question)
     {
-        QuestionManager questionManager = QuestionManager.Instantiate<QuestionManager>();
-        GetTree().Root.AddChild(questionManager);
-        questionManager.LoadSingleQuestion(question);
+        CreateQuizManager().LoadSingleQuestion(question);
 
         QueueFree();
     }
 
     private void LoadQuiz(Quiz quiz)
     {
-        QuestionManager questionManager = QuestionManager.Instantiate<QuestionManager>();
-        GetTree().Root.AddChild(questionManager);
-        questionManager.LoadQuiz(quiz);
+        CreateQuizManager().LoadQuiz(quiz);
 
         QueueFree();
     }
 
+
+    private QuizManager CreateQuizManager()
+    {
+        QuizManager quizManager = QuizManager.Instantiate<QuizManager>();
+        GetTree().Root.AddChild(quizManager);
+
+        return quizManager;
+    }
+
+    private QuestionCreator CreateQuestionCreator()
+    {
+        QuestionCreator questionCreator = QuestionCreator.Instantiate<QuestionCreator>();
+        GetTree().Root.AddChild(questionCreator);
+
+        return questionCreator;
+    }
 
 
     private void FileSelected(string path)
@@ -88,7 +107,7 @@ public partial class MainMenu : Node
         LoadQuiz(quiz);
     }
 
-    
+
 
     void PopupMessage(string message, string title)
     {

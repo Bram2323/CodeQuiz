@@ -15,6 +15,7 @@ ChoiceParent = NodePath("Choices")
 ChoicePrefab = ExtResource("1_vqk8g")
 
 [node name="TopPadding" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
@@ -29,3 +30,12 @@ layout_mode = 2
 
 [node name="Choices" type="VBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="MiddlePadding2" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="Line2" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mv2ih")

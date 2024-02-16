@@ -4,85 +4,88 @@ using System.Collections.Generic;
 
 public partial class QuestionScreen : Control
 {
-	[Export]
-	PackedScene TitleSegment, TextSegment, CodeSegment, LineSegment;
-	[Export]
-	PackedScene ListAnswer, MultiAnswer, SingleAnswer, LineAnswer;
+    [Export]
+    PackedScene TitleSegment, TextSegment, CodeSegment, LineSegment;
+    [Export]
+    PackedScene ListAnswer, MultiAnswer, SingleAnswer, LineAnswer;
 
 
-	List<Node> nodes = new();
-	IAnswerNode currentAnswer;
+    List<SegmentNode> segments = new();
+    List<AnswerNode> answers = new();
 
 
-	public void LoadQuestion(Question question)
-	{
-		ClearQuestion();
+    public void LoadQuestion(Question question)
+    {
+        ClearQuestion();
 
-		if (!string.IsNullOrWhiteSpace(question.Title))
+        foreach (IBlock block in question.Blocks)
         {
-            CreateSegmentFromType(SegmentType.Title).SetText(question.Title);
-		}
-
-        foreach (Segment segment in question.Segments)
-		{
-			ISegmentNode segmentNode = CreateSegmentFromType(segment.Type);
-			if (segmentNode == null)
-			{
-				CreateSegmentFromType(SegmentType.Text).SetText("Unsuported segment type!");
-				continue;
-			}
-
-			segmentNode.SetText(segment.Text);
-		}
-
-		Answer answer = question.Answer;
-		IAnswerNode answerNode = CreateAnswerFromType(answer.Type);
-
-		answerNode?.SetAnswers(answer.Answers, answer.CaseSensitive);
-		currentAnswer = answerNode;
-	}
-
-	public void ClearQuestion()
-	{
-		foreach (Node node in nodes) node.QueueFree();
-		nodes.Clear();
-	}
-
-	public void ShowAnswers()
-	{
-		currentAnswer?.ShowAnswers();
-	}
-
-	public bool HasAnswered()
-	{
-		if (currentAnswer == null) return false;
-		return currentAnswer.HasAnswered();
-	}
-
-	public bool HasCorrectlyAnswered()
-	{
-        if (currentAnswer == null) return true;
-		return currentAnswer.HasCorrectlyAnswered();
+            if (block is Segment segment) CreateSegmentFromType(segment.Type)?.SetText(segment.Text);
+            else if (block is Answer answer) CreateAnswerFromType(answer.Type)?.SetAnswers(answer.Answers);
+        }
     }
 
-	public object GetUserAnswers()
-	{
-		if (currentAnswer == null) return null;
-		return currentAnswer.GetUserAnswers();
-	}
+    public void ClearQuestion()
+    {
+        foreach (SegmentNode segment in segments) segment.QueueFree();
+        foreach (AnswerNode answer in answers) answer.QueueFree();
+        segments.Clear();
+        answers.Clear();
+    }
 
-	public void SetUserAnswers(object data)
-	{
-		currentAnswer?.SetUserAnswers(data);
-	}
+    public void ShowAnswers()
+    {
+        foreach (AnswerNode answer in answers)
+        {
+            answer.ShowAnswers();
+        }
+    }
+
+    public bool HasAnswered()
+    {
+        foreach (AnswerNode answer in answers)
+        {
+            if (!answer.HasAnswered()) return false;
+        }
+        return true;
+    }
+
+    public bool HasCorrectlyAnswered()
+    {
+        foreach (AnswerNode answer in answers)
+        {
+            if (!answer.HasCorrectlyAnswered()) return false;
+        }
+        return true;
+    }
+
+    public object[] GetUserAnswers()
+    {
+        List<object> data = new();
+        foreach(AnswerNode answer in answers)
+        {
+            data.Add(answer.GetUserAnswers());
+        }
+        return data.ToArray();
+    }
+
+    public void SetUserAnswers(object[] data)
+    {
+        if (data.Length != answers.Count) return;
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            answers[i].SetUserAnswers(data[i]);
+        }
+    }
 
 
 
-	ISegmentNode CreateSegmentFromType(SegmentType segmentType)
-	{
+    SegmentNode CreateSegmentFromType(SegmentType segmentType)
+    {
         return segmentType switch
         {
-			SegmentType.Title => CreateSegment(TitleSegment),
+            SegmentType.Title => CreateSegment(TitleSegment),
             SegmentType.Text => CreateSegment(TextSegment),
             SegmentType.Code => CreateSegment(CodeSegment),
             SegmentType.Line => CreateSegment(LineSegment),
@@ -90,19 +93,18 @@ public partial class QuestionScreen : Control
         };
     }
 
-    ISegmentNode CreateSegment(PackedScene packedScene)
-	{
-		Node segment = packedScene.Instantiate();
-		if (segment is not ISegmentNode segmentInterface) throw new ArgumentException("Scene was not of type " + nameof(ISegmentNode) + "!", nameof(packedScene));
+    SegmentNode CreateSegment(PackedScene packedScene)
+    {
+        SegmentNode segment = packedScene.Instantiate<SegmentNode>();
+        
+        AddChild(segment);
+        segments.Add(segment);
 
-		AddChild(segment);
-		nodes.Add(segment);
-
-		return segmentInterface;
-	}
+        return segment;
+    }
 
 
-    IAnswerNode CreateAnswerFromType(AnswerType answerType)
+    AnswerNode CreateAnswerFromType(AnswerType answerType)
     {
         return answerType switch
         {
@@ -114,14 +116,15 @@ public partial class QuestionScreen : Control
         };
     }
 
-    IAnswerNode CreateAnswer(PackedScene packedScene)
+    AnswerNode CreateAnswer(PackedScene packedScene)
     {
-        Node answer = packedScene.Instantiate();
-        if (answer is not IAnswerNode answerInterface) throw new ArgumentException("Scene was not of type " + nameof(IAnswerNode) + "!", nameof(packedScene));
+        AnswerNode answer = packedScene.Instantiate<AnswerNode>();
+
+        answer.SizeFlagsVertical = answers.Count == 0 ? SizeFlags.ShrinkEnd | SizeFlags.Expand : SizeFlags.ShrinkEnd;
 
         AddChild(answer);
-        nodes.Add(answer);
+        answers.Add(answer);
 
-        return answerInterface;
+        return answer;
     }
 }

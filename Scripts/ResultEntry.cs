@@ -3,28 +3,28 @@ using System;
 
 public partial class ResultEntry : Button
 {
-	[Export]
-	string PrefixNumber, PostfixStatus;
+    [Export]
+    string PrefixNumber, PostfixStatus;
 
-	[Export]
-	Label Status;
+    [Export]
+    Label Status;
 
-	public void SetNumber(int num)
-	{
-		Text = PrefixNumber + num;
-	}
+    public void SetNumber(int num)
+    {
+        Text = PrefixNumber + num;
+    }
 
-	public void SetStatus(QuestionStatus status, bool showAnswers)
-	{
+    public void SetStatus(QuestionStatus status, bool showAnswers)
+    {
         string theme = GetColorTheme(status, showAnswers);
 
         ThemeTypeVariation = theme;
         Status.Text = theme + PostfixStatus;
-	}
+    }
 
-	public void SetButtonCallback(Action callback)
-	{
-		Pressed += callback;
+    public void SetButtonCallback(Action callback)
+    {
+        Pressed += callback;
     }
 
 
@@ -32,13 +32,13 @@ public partial class ResultEntry : Button
     {
         if (showAnswers)
         {
-            if (status == QuestionStatus.Correct) return "Correct";
+            if ((status & QuestionStatus.Correct) == QuestionStatus.Correct) return "Correct";
             else return "Incorrect";
         }
         else
         {
-            if (status == QuestionStatus.Unanswered) return "Unanswered";
-            else return "Answered";
+            if ((status & QuestionStatus.Answered) == QuestionStatus.Answered) return "Answered";
+            else return "Unanswered";
         }
     }
 }

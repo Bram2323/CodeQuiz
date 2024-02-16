@@ -1,0 +1,19 @@
+# What are the 8 primitive types?
+
+Don't guess the wrong types!
+---
+
+=== List
+++ byte
+++ short
+++ int
+++ long
+++ float
+++ double
+++ char
+++ boolean
+- bool
+- string
+- integer
+- character
+===

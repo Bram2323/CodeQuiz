@@ -1,0 +1,197 @@
+[gd_scene load_steps=6 format=3 uid="uid://ue4c7mxvdj7l"]
+
+[ext_resource type="Script" path="res://Scripts/QuestionCreator.cs" id="1_3k1lg"]
+[ext_resource type="Theme" uid="uid://220ch5okdli" path="res://Recources/Themes/MenuBar.tres" id="2_rybvy"]
+[ext_resource type="Theme" uid="uid://r07vpxwdbkv2" path="res://Recources/Themes/Creator.tres" id="3_4wnaa"]
+[ext_resource type="PackedScene" uid="uid://ceq41xiwbpupl" path="res://Recources/Scenes/Question.tscn" id="3_x2o53"]
+[ext_resource type="Script" path="res://Scripts/CreatorScreen.cs" id="4_ddq4u"]
+
+[node name="Question" type="Panel" node_paths=PackedStringArray("FileLabel", "UnsavedLabel", "MainMenuButton", "PreviewButton", "ShowAnswerButton", "SaveButton", "SaveAsButton", "LoadButton", "NewButton", "UnsavedConfirmation", "SaveDialog", "LoadDialog", "CreatorScreen", "QuestionScreen")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3k1lg")
+FileLabel = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/File")
+UnsavedLabel = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/Unsaved")
+MainMenuButton = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/MainMenu")
+PreviewButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/Preview")
+ShowAnswerButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/ShowAnswer")
+SaveButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/Save")
+SaveAsButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/SaveAs")
+LoadButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/Load")
+NewButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/New")
+UnsavedConfirmation = NodePath("UnsavedConfirmation")
+SaveDialog = NodePath("SaveDialog")
+LoadDialog = NodePath("LoadDialog")
+CreatorScreen = NodePath("Scroll/VPaddingContainer/HPaddingContainer/Input")
+QuestionScreen = NodePath("Scroll/VPaddingContainer/HPaddingContainer/Question")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VPaddingContainer" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Menu" type="Panel" parent="Scroll/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_rybvy")
+
+[node name="VPadding" type="VBoxContainer" parent="Scroll/VPaddingContainer/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopPadding" type="Control" parent="Scroll/VPaddingContainer/Menu/VPadding"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="HPadding" type="HBoxContainer" parent="Scroll/VPaddingContainer/Menu/VPadding"]
+layout_mode = 2
+
+[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="Question" type="Label" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+layout_mode = 2
+text = "Question Creator  - "
+
+[node name="File" type="Label" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+layout_mode = 2
+text = "Untitled"
+
+[node name="Unsaved" type="Label" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+visible = false
+layout_mode = 2
+text = "*"
+
+[node name="MainMenu" type="Button" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+custom_minimum_size = Vector2(150, 34)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+text = "Main Menu"
+
+[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="TopPadding" type="Control" parent="Scroll/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="HPaddingContainer" type="HBoxContainer" parent="Scroll/VPaddingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Input" type="VBoxContainer" parent="Scroll/VPaddingContainer/HPaddingContainer" node_paths=PackedStringArray("SegmentsEdit")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_4wnaa")
+script = ExtResource("4_ddq4u")
+SegmentsEdit = NodePath("CodeEdit")
+
+[node name="CodeEdit" type="CodeEdit" parent="Scroll/VPaddingContainer/HPaddingContainer/Input"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Question" parent="Scroll/VPaddingContainer/HPaddingContainer" instance=ExtResource("3_x2o53")]
+visible = false
+layout_mode = 2
+
+[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="BottomPadding" type="Control" parent="Scroll/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="QuestionButtons" type="HBoxContainer" parent="Scroll/VPaddingContainer"]
+layout_mode = 2
+
+[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Preview" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(150, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Preview"
+
+[node name="ShowAnswer" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(150, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Show Answer"
+
+[node name="Save" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(125, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Save"
+
+[node name="SaveAs" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(125, 35)
+layout_mode = 2
+text = "Save As"
+
+[node name="Load" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(125, 35)
+layout_mode = 2
+text = "Load"
+
+[node name="New" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(125, 35)
+layout_mode = 2
+text = "New"
+
+[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="MoreBottomPadding" type="Control" parent="Scroll/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="UnsavedConfirmation" type="ConfirmationDialog" parent="."]
+title = "Warning!"
+size = Vector2i(342, 106)
+exclusive = false
+ok_button_text = "Continue"
+dialog_text = "You have unsaved changes!"
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+size = Vector2i(700, 500)
+access = 2
+filters = PackedStringArray("*.question")
+
+[node name="LoadDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(700, 500)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.question")

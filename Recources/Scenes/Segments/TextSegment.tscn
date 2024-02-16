@@ -2,9 +2,15 @@
 
 [ext_resource type="Script" path="res://Scripts/Segments/TextSegment.cs" id="1_tm4nn"]
 
-[node name="TextSegment" type="RichTextLabel"]
+[node name="TextSegment" type="VBoxContainer" node_paths=PackedStringArray("label")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_tm4nn")
+label = NodePath("Label")
+
+[node name="Label" type="RichTextLabel" parent="."]
 clip_contents = false
+layout_mode = 2
 bbcode_enabled = true
 text = "This is a text label with some text on it!"
 fit_content = true
-script = ExtResource("1_tm4nn")

@@ -1,0 +1,1 @@
+﻿public record AnswerOption(string Text, bool Correct, bool CaseSensitive) { }

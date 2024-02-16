@@ -1,38 +1,35 @@
- using Godot;
-using System;
+using Godot;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
 
-public partial class LineAnswer : Node, IAnswerNode
+public partial class LineAnswer : AnswerNode
 {
-	[Export]
-	Node InputParent;
-	[Export]
-	PackedScene InputPrefab;
+    [Export]
+    Node InputParent;
+    [Export]
+    PackedScene InputPrefab;
 
 
-	List<InputField> inputs = new();
+    List<InputField> inputs = new();
 
 
 
-    public void SetAnswers(AnswerOption[] answers, bool caseSensitive)
-	{
-		ClearInputs();
+    public override void SetAnswers(AnswerOption[] answers)
+    {
+        ClearInputs();
 
         foreach (AnswerOption answer in answers)
         {
             InputField input = InputPrefab.Instantiate<InputField>();
             InputParent.AddChild(input);
 
-            input.SetAnswer(answer.Text, caseSensitive);
+            input.SetAnswer(answer.Text.Trim(), answer.CaseSensitive);
 
-			inputs.Add(input);
+            inputs.Add(input);
         }
     }
 
-	public void ShowAnswers()
-	{
+    public override void ShowAnswers()
+    {
         foreach (InputField input in inputs)
         {
             input.ShowAnswer();
@@ -40,59 +37,59 @@ public partial class LineAnswer : Node, IAnswerNode
     }
 
 
-    public bool HasAnswered()
+    public override bool HasAnswered()
     {
-		foreach (InputField input in inputs)
-		{
-			if (!string.IsNullOrWhiteSpace(input.GetText().Trim())) return true;
-		}
+        foreach (InputField input in inputs)
+        {
+            if (!string.IsNullOrWhiteSpace(input.GetText().Trim())) return true;
+        }
         return false;
     }
 
-    public bool HasCorrectlyAnswered()
-	{
-		bool correct = true;
+    public override bool HasCorrectlyAnswered()
+    {
+        bool correct = true;
 
         foreach (InputField input in inputs)
         {
-			if (!input.HasCorrectlyAnswered()) correct = false;
+            if (!input.HasCorrectlyAnswered()) correct = false;
         }
 
         return correct;
-	}
+    }
 
 
-	public object GetUserAnswers()
-	{
-		string[] answers = new string[inputs.Count];
+    public override object GetUserAnswers()
+    {
+        string[] answers = new string[inputs.Count];
 
-		for (int i = 0; i < inputs.Count; i++)
-		{
-			answers[i] = inputs[i].GetText();
-		}
+        for (int i = 0; i < inputs.Count; i++)
+        {
+            answers[i] = inputs[i].GetText();
+        }
 
-		return answers;
-	}
+        return answers;
+    }
 
-	public void SetUserAnswers(object data)
-	{
-		if (data is not string[] answers) return;
-		if (answers.Length != inputs.Count) return;
+    public override void SetUserAnswers(object data)
+    {
+        if (data is not string[] answers) return;
+        if (answers.Length != inputs.Count) return;
 
-		for (int i = 0;i < inputs.Count;i++)
-		{
-			inputs[i].SetText(answers[i]);
-		}
-	}
+        for (int i = 0; i < inputs.Count; i++)
+        {
+            inputs[i].SetText(answers[i]);
+        }
+    }
 
 
-	void ClearInputs()
-	{
-		foreach (InputField input in inputs)
-		{
-			input.QueueFree();
-		}
+    void ClearInputs()
+    {
+        foreach (InputField input in inputs)
+        {
+            input.QueueFree();
+        }
 
-		inputs.Clear();
-	}
+        inputs.Clear();
+    }
 }

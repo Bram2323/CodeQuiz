@@ -1,6 +1,6 @@
 ﻿public enum AnswerType
 {
-    //Invalid,
+    Empty,
     List,
     Multi,
     Single,

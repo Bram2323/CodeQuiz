@@ -1,46 +1,51 @@
 # Code Quiz
-An application to test your code knowledge!
+An application to create simple code questions!
+To quiz yourself you can select a directory and ever .question file in that directory and sub-directories will be loaded into a quiz
+You can use the built in editor or any text editor to create questions
 
-## Json format
+## Question Format
+Code Quiz uses a custom .question format which is mostly plain text with some styling:
+### Styling:
+`#` - Creates a heading with a line underneath
+`---` - Creates a line across the screen
+```` ``` ```` - Starts or ends a code block with syntax highlighting (Currently only for java)
 
-### Question:
-Every question can have:
-- "title" - String
-- "segments" - Segment Array
+`=== [type]` - Starts a answer block with a type
+| Type | Description         |
+|---|---------------------|
+|`List`|Guess all the answers one by one (Fails if you guess an answer marked as incorrect)|
+|`Line`|Input all answers in a text edit (Ignores if answers are marked as incorrect/correct)|
+|`Multi`|Select all the correct answers|
+|`Single`|Select any of the correct answers|
 
-Every question must have:
-- "answer" - Answer
----
-### Segment:
-Every segment can have:
-- "text" - String
+In the answer block you can define answers like this:
+-- `+` - A correct answer that is not case sensitive
+-- `++` - A correct answer that is case sensitive
+-- `-` - An incorrect answer that is not case sensitive
+-- `--` - An incorrect answer that is case sensitive
+`===` - Ends an answer block
 
-Every segment must have:
-- "type" - Segment Type
+### Example:
+````
+# How many times will the for loop run?
+```
+public class Loops {
+    public static void main(String[] args){
+	    int j = 5;
+	    for (int i = 2; i <= 6; i++){
+	        j += i;
+	    }
+	    System.out.println(j);
+    }
+}
+```-
+In the file "Loops.java"
 
-#### Segment Types
-- "text" - A rich text label
-- "title" - A bigger rich text label with a line underneath
-- "code" - A code block with syntax highlighting
-- "line" - A thin line (Ignores the "text" field)
----
-### Answer
-Every answer can have:
-- "caseSensitive" - bool (false if not specified)
-
-Every answer must have:
-- "type" - Answer Type
-- "answers" - Answer Option Array
-
-#### Answer Types
-- "list" - The user needs to guess all the answers, immediately reveals correctly guessed answers
-- "multi" - The user needs to select all the correct option
-- "single" - The user needs to select the correct option (If multiple options are correct it converts to a "multi" type)
-- "line" - The user needs to guess all the answers, doesn't immediately reveal correctly guessed answers
----
-### Answer Option
-Every answer option can have:
-- "correct" - bool (false if not specified)
-
-Every answer option must have:
-- "text" - String
+=== Single
+- 7
+- 6
++ 5
+- 4
+- Compile Error
+===
+````

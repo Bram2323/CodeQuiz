@@ -1,0 +1,21 @@
+# How many times will the for loop run?
+```
+public class Loops {
+    public static void main(String[] args){
+	    int j = 5;
+	    for (int i = 2; i <= 6; i++){
+	        j += i;
+	    }
+	    System.out.println(j);
+    }
+}
+```
+In the file "Loops.java"
+
+=== Single
+- 7
+- 6
++ 5
+- 4
+- Compile Error
+===

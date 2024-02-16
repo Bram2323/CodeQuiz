@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://chfeimehdt0in"]
+[gd_scene load_steps=5 format=3 uid="uid://chfeimehdt0in"]
 
 [ext_resource type="Theme" uid="uid://2yc81g3dcceb" path="res://Recources/Themes/MainMenu.tres" id="1_xp5fv"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_y4p1k"]
-[ext_resource type="PackedScene" uid="uid://chd8t6djg3lxc" path="res://Recources/Scenes/Question.tscn" id="3_ew31a"]
+[ext_resource type="PackedScene" uid="uid://chd8t6djg3lxc" path="res://Recources/Scenes/QuizManager.tscn" id="3_ew31a"]
+[ext_resource type="PackedScene" uid="uid://ue4c7mxvdj7l" path="res://Recources/Scenes/QuestionCreator.tscn" id="4_nujc1"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("LoadFileButton", "LoadDirectoryButton", "FileDialog", "AcceptDialog")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("LoadFileButton", "LoadDirectoryButton", "CreateQuestionButton", "FileDialog", "AcceptDialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,11 +14,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xp5fv")
 script = ExtResource("1_y4p1k")
-LoadFileButton = NodePath("Buttons/LoadFile")
-LoadDirectoryButton = NodePath("Buttons/LoadDirectory")
+LoadFileButton = NodePath("Buttons/LoadQuestion")
+LoadDirectoryButton = NodePath("Buttons/LoadQuiz")
+CreateQuestionButton = NodePath("Buttons/CreateQuestion")
 FileDialog = NodePath("FileDialog")
 AcceptDialog = NodePath("AcceptDialog")
-QuestionManager = ExtResource("3_ew31a")
+QuizManager = ExtResource("3_ew31a")
+QuestionCreator = ExtResource("4_nujc1")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -42,17 +45,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="LoadFile" type="Button" parent="Buttons"]
-custom_minimum_size = Vector2(175, 0)
+[node name="LoadQuestion" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Load File"
+text = "Load Question"
 
-[node name="LoadDirectory" type="Button" parent="Buttons"]
-custom_minimum_size = Vector2(175, 0)
+[node name="LoadQuiz" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Load Directory"
+text = "Load Quiz"
+
+[node name="CreateQuestion" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Create Question"
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -61,7 +70,7 @@ exclusive = false
 ok_button_text = "Open"
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.json")
+filters = PackedStringArray("*.json", "*.question")
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 size = Vector2i(300, 100)

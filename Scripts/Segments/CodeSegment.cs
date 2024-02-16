@@ -1,21 +1,19 @@
 using Godot;
-using System;
 
-public partial class CodeSegment : Node, ISegmentNode
+public partial class CodeSegment : SegmentNode
 {
-	[Export]
-	CodeEdit codeEdit;
-	[Export]
-	SyntaxHighlighter syntaxHighlighter;
+    [Export]
+    CodeEdit codeEdit;
+    [Export]
+    SyntaxHighlighter syntaxHighlighter;
 
     public override void _Ready()
     {
         codeEdit.SyntaxHighlighter = syntaxHighlighter;
     }
 
-    public void SetText(string text)
-	{
-		codeEdit.Text = text;
-		//codeEdit.Editable = false;
-	}
+    public override void SetText(string text)
+    {
+        codeEdit.Text = text;
+    }
 }
