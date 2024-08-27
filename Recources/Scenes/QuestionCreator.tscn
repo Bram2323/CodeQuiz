@@ -115,6 +115,9 @@ SegmentsEdit = NodePath("CodeEdit")
 [node name="CodeEdit" type="CodeEdit" parent="Scroll/VPaddingContainer/HPaddingContainer/Input"]
 layout_mode = 2
 size_flags_vertical = 3
+indent_use_spaces = true
+indent_automatic = true
+auto_brace_completion_enabled = true
 
 [node name="Question" parent="Scroll/VPaddingContainer/HPaddingContainer" instance=ExtResource("3_x2o53")]
 visible = false

@@ -1,4 +1,4 @@
-# Wich lines can run?
+# Wich lines can run independently?
 
 ```
 public static void main(String... args){

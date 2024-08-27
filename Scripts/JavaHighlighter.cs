@@ -73,7 +73,7 @@ public partial class JavaHighlighter : SyntaxHighlighter
         AddHighlightFromRegEx(ref highlights, "(?<=\\.)[\\w\\d]*", line, MemberVariableColor, defaultColor);
         AddHighlightFromRegEx(ref highlights, "[\\w\\d]+(?=\\()", line, FunctionColor, defaultColor);
         AddHighlightFromRegEx(ref highlights, "\\b[-+]?([0-9]*\\.[0-9]+|[0-9]+)(\\w?)\\b", line, NumberColor, defaultColor);
-        AddHighlightFromRegEx(ref highlights, "(?<=^|[^\\.])\\b[A-Z]([\\w\\d]*)", line, ClassColor, defaultColor);
+        AddHighlightFromRegEx(ref highlights, "((^|[^\\.])|\\bimport\\b.*)\\K\\b[A-Z]([\\w\\d]*)", line, ClassColor, defaultColor);
         AddHighlightFromKeywords(ref highlights, Keywords, line, KeywordColor, defaultColor);
         AddHighlightFromRegEx(ref highlights, "\"(.*?)\"", line, StringColor, defaultColor);
         AddHighlightFromRegEx(ref highlights, "//.*", line, CommentColor, defaultColor);
