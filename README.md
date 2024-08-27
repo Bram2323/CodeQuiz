@@ -1,6 +1,6 @@
 # Code Quiz
 An application to create simple code questions!
-To quiz yourself you can select a directory and ever .question file in that directory and sub-directories will be loaded into a quiz
+To quiz yourself you can select a directory and every .question file in that directory and sub-directories will be loaded into a quiz
 You can use the built in editor or any text editor to create questions
 
 ## Question Format
