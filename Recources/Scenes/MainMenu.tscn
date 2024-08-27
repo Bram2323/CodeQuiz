@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://chfeimehdt0in"]
+[gd_scene load_steps=6 format=3 uid="uid://chfeimehdt0in"]
 
 [ext_resource type="Theme" uid="uid://2yc81g3dcceb" path="res://Recources/Themes/MainMenu.tres" id="1_xp5fv"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_y4p1k"]
 [ext_resource type="PackedScene" uid="uid://chd8t6djg3lxc" path="res://Recources/Scenes/QuizManager.tscn" id="3_ew31a"]
 [ext_resource type="PackedScene" uid="uid://ue4c7mxvdj7l" path="res://Recources/Scenes/QuestionCreator.tscn" id="4_nujc1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i31e2"]
+font_size = 150
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("LoadFileButton", "LoadDirectoryButton", "CreateQuestionButton", "FileDialog", "AcceptDialog")]
 layout_mode = 3
@@ -14,9 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xp5fv")
 script = ExtResource("1_y4p1k")
-LoadFileButton = NodePath("Buttons/LoadQuestion")
-LoadDirectoryButton = NodePath("Buttons/LoadQuiz")
-CreateQuestionButton = NodePath("Buttons/CreateQuestion")
+LoadFileButton = NodePath("Layout/Buttons/LoadQuestion")
+LoadDirectoryButton = NodePath("Layout/Buttons/LoadQuiz")
+CreateQuestionButton = NodePath("Layout/Buttons/CreateQuestion")
 FileDialog = NodePath("FileDialog")
 AcceptDialog = NodePath("AcceptDialog")
 QuizManager = ExtResource("3_ew31a")
@@ -30,34 +33,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Buttons" type="HBoxContainer" parent="."]
+[node name="Layout" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -38.5
-offset_top = -15.5
-offset_right = 38.5
-offset_bottom = 15.5
+offset_left = -310.0
+offset_top = -20.0
+offset_right = 310.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="Layout"]
+layout_mode = 2
+text = "Code Quiz"
+label_settings = SubResource("LabelSettings_i31e2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Padding" type="Control" parent="Layout"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 10
 
-[node name="LoadQuestion" type="Button" parent="Buttons"]
+[node name="LoadQuestion" type="Button" parent="Layout/Buttons"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Load Question"
 
-[node name="LoadQuiz" type="Button" parent="Buttons"]
+[node name="LoadQuiz" type="Button" parent="Layout/Buttons"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Load Quiz"
 
-[node name="CreateQuestion" type="Button" parent="Buttons"]
+[node name="CreateQuestion" type="Button" parent="Layout/Buttons"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
