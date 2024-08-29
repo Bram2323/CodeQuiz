@@ -165,6 +165,7 @@ size_flags_horizontal = 0
 text = "Preview"
 
 [node name="ShowAnswer" type="Button" parent="VPaddingContainer/QuestionButtons"]
+visible = false
 custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
 size_flags_horizontal = 0
