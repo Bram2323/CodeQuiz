@@ -1,0 +1,1 @@
+public record Container(ContainerType Type, IBlock[] Blocks) : IBlock { }

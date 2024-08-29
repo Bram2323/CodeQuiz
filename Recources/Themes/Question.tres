@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=33 format=3 uid="uid://dx20ujswijwdu"]
+[gd_resource type="Theme" load_steps=35 format=3 uid="uid://dx20ujswijwdu"]
 
 [ext_resource type="FontFile" uid="uid://b8j0kq4rj6gov" path="res://Recources/Fonts/JetbrainsMono/ttf/JetBrainsMonoNL-Medium.ttf" id="1_roikk"]
 
@@ -41,6 +41,38 @@ corner_radius_bottom_left = 7
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6syx"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwbxv"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ms5e6"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0.352941, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.282353, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q10e1"]
 content_margin_left = 7.0
 content_margin_top = 7.0
@@ -76,7 +108,7 @@ corner_radius_bottom_left = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bduvw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_465fm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehr0a"]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 border_width_left = 4
 border_width_top = 4
@@ -430,13 +462,17 @@ CodeEdit/fonts/font = ExtResource("1_roikk")
 CodeEdit/styles/focus = SubResource("StyleBoxEmpty_t3eef")
 CodeEdit/styles/normal = SubResource("StyleBoxEmpty_l7hna")
 CodeEdit/styles/read_only = SubResource("StyleBoxEmpty_h6syx")
+ContainerBackground/base_type = &"PanelContainer"
+ContainerBackground/styles/panel = SubResource("StyleBoxFlat_xwbxv")
+ExplanationBackground/base_type = &"PanelContainer"
+ExplanationBackground/styles/panel = SubResource("StyleBoxFlat_ms5e6")
 Incorrect/base_type = &"Button"
 Incorrect/styles/disabled = SubResource("StyleBoxFlat_q10e1")
 Incorrect/styles/normal = SubResource("StyleBoxFlat_fe4mu")
 Incorrect/styles/pressed = SubResource("StyleBoxFlat_gordi")
 LineEdit/font_sizes/font_size = 20
 Panel/styles/panel = SubResource("StyleBoxFlat_bduvw")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_465fm")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ehr0a")
 RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/bold_italics_font_size = 20
 RichTextLabel/font_sizes/italics_font_size = 20

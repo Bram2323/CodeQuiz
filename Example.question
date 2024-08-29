@@ -1,4 +1,4 @@
-# How many times will the for loop run?
+# How many times will the loop run?
 ```
 public class Loops {
     public static void main(String[] args){
@@ -11,6 +11,16 @@ public class Loops {
 }
 ```
 In the file "Loops.java"
+
+>>> Panel
+    Think about when each statement gets called!
+    Thats really important!
+<<<
+
+>>> Explanation
+    The loop will stop if i is 7
+    Every loop 1 is added to i and i starts at 2 so the loop needs to run 5 times to stop
+<<<
 
 === Single
 - 7

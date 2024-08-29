@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwriq1r1fda71"]
+
+[ext_resource type="Script" path="res://Scripts/Containers/ExplanationContainer.cs" id="1_dqjsy"]
+[ext_resource type="Theme" uid="uid://dx20ujswijwdu" path="res://Recources/Themes/Question.tres" id="2_bn2ri"]
+
+[node name="ExplanationContainer" type="VBoxContainer" node_paths=PackedStringArray("Container")]
+visible = false
+offset_bottom = 18.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource("1_dqjsy")
+Container = NodePath("PanelContainer/VPaddingContainer/HPaddingContainer/Container")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("2_bn2ri")
+theme_type_variation = &"ExplanationBackground"
+
+[node name="VPaddingContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TopPadding" type="Control" parent="PanelContainer/VPaddingContainer"]
+layout_mode = 2
+
+[node name="HPaddingContainer" type="HBoxContainer" parent="PanelContainer/VPaddingContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LeftPadding" type="Control" parent="PanelContainer/VPaddingContainer/HPaddingContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Container" type="VBoxContainer" parent="PanelContainer/VPaddingContainer/HPaddingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightPadding" type="Control" parent="PanelContainer/VPaddingContainer/HPaddingContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="BottomPadding" type="Control" parent="PanelContainer/VPaddingContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ceq41xiwbpupl"]
+[gd_scene load_steps=13 format=3 uid="uid://ceq41xiwbpupl"]
 
 [ext_resource type="Theme" uid="uid://dx20ujswijwdu" path="res://Recources/Themes/Question.tres" id="1_ok0xw"]
 [ext_resource type="PackedScene" uid="uid://cvew8xa8fbv5v" path="res://Recources/Scenes/Segments/CodeSegment.tscn" id="2_c6rff"]
@@ -9,13 +9,21 @@
 [ext_resource type="PackedScene" uid="uid://lk0soqjthw6n" path="res://Recources/Scenes/Segments/LineSegment.tscn" id="8_glv7d"]
 [ext_resource type="PackedScene" uid="uid://dvqj6x8b7mic3" path="res://Recources/Scenes/Answers/MultiAnswer.tscn" id="9_du43l"]
 [ext_resource type="PackedScene" uid="uid://c437pmobdvihi" path="res://Recources/Scenes/Answers/SingleAnswer.tscn" id="10_xajyf"]
+[ext_resource type="PackedScene" uid="uid://bwriq1r1fda71" path="res://Recources/Scenes/Containers/ExplanationContainer.tscn" id="11_6layc"]
+[ext_resource type="PackedScene" uid="uid://cojgsuxasuhga" path="res://Recources/Scenes/Containers/PanelContainer.tscn" id="11_hhna3"]
 [ext_resource type="PackedScene" uid="uid://46mfqvefr4ro" path="res://Recources/Scenes/Answers/LineAnswer.tscn" id="11_te3he"]
 
-[node name="Question" type="VBoxContainer"]
+[node name="Question" type="VBoxContainer" node_paths=PackedStringArray("Container")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_ok0xw")
 script = ExtResource("4_14i1u")
+Container = NodePath(".")
 TitleSegment = ExtResource("3_2w7im")
 TextSegment = ExtResource("2_mdooy")
 CodeSegment = ExtResource("2_c6rff")
@@ -24,3 +32,8 @@ ListAnswer = ExtResource("6_4g3pk")
 MultiAnswer = ExtResource("9_du43l")
 SingleAnswer = ExtResource("10_xajyf")
 LineAnswer = ExtResource("11_te3he")
+PanelContainer = ExtResource("11_hhna3")
+ExplanationContainer = ExtResource("11_6layc")
+
+[node name="TopPadding" type="Control" parent="."]
+layout_mode = 2

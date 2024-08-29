@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://chd8t6djg3lxc"]
+[gd_scene load_steps=8 format=3 uid="uid://chd8t6djg3lxc"]
 
 [ext_resource type="Script" path="res://Scripts/QuizManager.cs" id="1_k30wy"]
 [ext_resource type="Theme" uid="uid://220ch5okdli" path="res://Recources/Themes/MenuBar.tres" id="2_evfnq"]
@@ -7,6 +7,11 @@
 [ext_resource type="Script" path="res://Scripts/ResultsScreen.cs" id="14_4uihy"]
 [ext_resource type="PackedScene" uid="uid://bico54e0yy4tb" path="res://Recources/Scenes/ResultsEntry.tscn" id="14_inhhy"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w881w"]
+bg_color = Color(0.392157, 0.392157, 0.392157, 1)
+expand_margin_left = 15.0
+expand_margin_right = 15.0
+
 [node name="Quiz" type="Panel" node_paths=PackedStringArray("QuestionScreen", "ResultsScreen", "QuitConfirmation", "ResultsConfirmation", "IndexEdit", "TotalQuestions", "MainMenuButton", "ResultsButton", "NextButton", "PreviousButton")]
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,37 +19,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k30wy")
-QuestionScreen = NodePath("Scroll/VPaddingContainer/HPaddingContainer/Question")
-ResultsScreen = NodePath("Scroll/VPaddingContainer/HPaddingContainer/Results")
+QuestionScreen = NodePath("VPaddingContainer/HPaddingContainer/Question")
+ResultsScreen = NodePath("VPaddingContainer/HPaddingContainer/Results")
 QuitConfirmation = NodePath("MainMenuConfirmation")
 ResultsConfirmation = NodePath("ResultsConfirmation")
-IndexEdit = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/LineEdit")
-TotalQuestions = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/TotalQuestions")
-MainMenuButton = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/MainMenu")
-ResultsButton = NodePath("Scroll/VPaddingContainer/Menu/VPadding/HPadding/Results")
-NextButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/NextButton")
-PreviousButton = NodePath("Scroll/VPaddingContainer/QuestionButtons/PreviousButton")
+IndexEdit = NodePath("VPaddingContainer/Menu/VPadding/HPadding/LineEdit")
+TotalQuestions = NodePath("VPaddingContainer/Menu/VPadding/HPadding/TotalQuestions")
+MainMenuButton = NodePath("VPaddingContainer/Menu/VPadding/HPadding/MainMenu")
+ResultsButton = NodePath("VPaddingContainer/Menu/VPadding/HPadding/Results")
+NextButton = NodePath("VPaddingContainer/QuestionButtons/NextButton")
+PreviousButton = NodePath("VPaddingContainer/QuestionButtons/PreviousButton")
 
-[node name="Scroll" type="ScrollContainer" parent="."]
-clip_contents = false
+[node name="VPaddingContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VPaddingContainer" type="VBoxContainer" parent="Scroll"]
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Menu" type="Panel" parent="Scroll/VPaddingContainer"]
+[node name="Menu" type="Panel" parent="VPaddingContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("2_evfnq")
 
-[node name="VPadding" type="VBoxContainer" parent="Scroll/VPaddingContainer/Menu"]
+[node name="VPadding" type="VBoxContainer" parent="VPaddingContainer/Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,22 +55,22 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TopPadding" type="Control" parent="Scroll/VPaddingContainer/Menu/VPadding"]
+[node name="TopPadding" type="Control" parent="VPaddingContainer/Menu/VPadding"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="HPadding" type="HBoxContainer" parent="Scroll/VPaddingContainer/Menu/VPadding"]
+[node name="HPadding" type="HBoxContainer" parent="VPaddingContainer/Menu/VPadding"]
 layout_mode = 2
 
-[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="LeftPadding" type="Control" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="Question" type="Label" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="Question" type="Label" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 layout_mode = 2
 text = "Question: "
 
-[node name="LineEdit" type="LineEdit" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="LineEdit" type="LineEdit" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 size_flags_vertical = 4
@@ -77,49 +78,49 @@ text = "1"
 alignment = 2
 select_all_on_focus = true
 
-[node name="Slash" type="Label" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="Slash" type="Label" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 layout_mode = 2
 text = " /"
 
-[node name="TotalQuestions" type="Label" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="TotalQuestions" type="Label" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 layout_mode = 2
 text = "100"
 
-[node name="MainMenu" type="Button" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="MainMenu" type="Button" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 custom_minimum_size = Vector2(150, 34)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 text = "Main Menu"
 
-[node name="Results" type="Button" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="Results" type="Button" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 custom_minimum_size = Vector2(150, 34)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "Results"
 
-[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/Menu/VPadding/HPadding"]
+[node name="RightPadding" type="Control" parent="VPaddingContainer/Menu/VPadding/HPadding"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="TopPadding" type="Control" parent="Scroll/VPaddingContainer"]
+[node name="TopPadding" type="Control" parent="VPaddingContainer"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="HPaddingContainer" type="HBoxContainer" parent="Scroll/VPaddingContainer"]
+[node name="HPaddingContainer" type="HBoxContainer" parent="VPaddingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+[node name="LeftPadding" type="Control" parent="VPaddingContainer/HPaddingContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="Question" parent="Scroll/VPaddingContainer/HPaddingContainer" instance=ExtResource("3_ulqti")]
+[node name="Question" parent="VPaddingContainer/HPaddingContainer" instance=ExtResource("3_ulqti")]
 layout_mode = 2
 
-[node name="Results" type="VBoxContainer" parent="Scroll/VPaddingContainer/HPaddingContainer" node_paths=PackedStringArray("Amount", "Total", "NumberText", "ShowAnswersButton")]
+[node name="Results" type="VBoxContainer" parent="VPaddingContainer/HPaddingContainer" node_paths=PackedStringArray("Amount", "Total", "NumberText", "ShowAnswersButton")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -132,75 +133,80 @@ Total = NodePath("Header/HSpacing/Total")
 NumberText = NodePath("Header/HSpacing/NumberText")
 ShowAnswersButton = NodePath("ShowResults")
 
-[node name="TopPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer/Results"]
+[node name="TopPadding" type="Control" parent="VPaddingContainer/HPaddingContainer/Results"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="Header" type="PanelContainer" parent="Scroll/VPaddingContainer/HPaddingContainer/Results"]
+[node name="Header" type="PanelContainer" parent="VPaddingContainer/HPaddingContainer/Results"]
 layout_mode = 2
 
-[node name="HSpacing" type="HBoxContainer" parent="Scroll/VPaddingContainer/HPaddingContainer/Results/Header"]
+[node name="HSpacing" type="HBoxContainer" parent="VPaddingContainer/HPaddingContainer/Results/Header"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Scroll/VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Label" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
 layout_mode = 2
 text = "Questions"
 
-[node name="Amount" type="Label" parent="Scroll/VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Amount" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "1
 "
 
-[node name="Slash" type="Label" parent="Scroll/VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Slash" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
 layout_mode = 2
 text = "/"
 
-[node name="Total" type="Label" parent="Scroll/VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Total" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
 layout_mode = 2
 text = "100
 "
 
-[node name="NumberText" type="Label" parent="Scroll/VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="NumberText" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
 layout_mode = 2
 text = " Answered"
 
-[node name="ShowResults" type="Button" parent="Scroll/VPaddingContainer/HPaddingContainer/Results"]
+[node name="ShowResults" type="Button" parent="VPaddingContainer/HPaddingContainer/Results"]
 layout_mode = 2
 text = "Show Results"
 
-[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/HPaddingContainer"]
+[node name="RightPadding" type="Control" parent="VPaddingContainer/HPaddingContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="BottomPadding" type="Control" parent="Scroll/VPaddingContainer"]
+[node name="Line" type="Panel" parent="VPaddingContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w881w")
+
+[node name="BottomPadding" type="Control" parent="VPaddingContainer"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="QuestionButtons" type="HBoxContainer" parent="Scroll/VPaddingContainer"]
+[node name="QuestionButtons" type="HBoxContainer" parent="VPaddingContainer"]
 layout_mode = 2
 
-[node name="LeftPadding" type="Control" parent="Scroll/VPaddingContainer/QuestionButtons"]
+[node name="LeftPadding" type="Control" parent="VPaddingContainer/QuestionButtons"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="PreviousButton" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+[node name="PreviousButton" type="Button" parent="VPaddingContainer/QuestionButtons"]
 custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Previous"
 
-[node name="NextButton" type="Button" parent="Scroll/VPaddingContainer/QuestionButtons"]
+[node name="NextButton" type="Button" parent="VPaddingContainer/QuestionButtons"]
 custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Next"
 
-[node name="RightPadding" type="Control" parent="Scroll/VPaddingContainer/QuestionButtons"]
+[node name="RightPadding" type="Control" parent="VPaddingContainer/QuestionButtons"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="MoreBottomPadding" type="Control" parent="Scroll/VPaddingContainer"]
+[node name="MoreBottomPadding" type="Control" parent="VPaddingContainer"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 

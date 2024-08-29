@@ -14,6 +14,10 @@ public class Test{
 }
 ```
 
+>>> Explanation
+    After line 6 both a and b are 2, so at line 7 b stays at 2
+<<<
+
 === Single
 - It prints "1"
 + It prints "2"

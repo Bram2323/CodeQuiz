@@ -115,8 +115,10 @@ public partial class QuestionCreator : Node
         if (!File.Exists(path)) return;
 
         CreatorScreen.Text = File.ReadAllText(path);
+        CreatorScreen.ResetHistory();
 
         UpdateFilePath(path);
+        SetPreview(false);
     }
 
     void UpdateFilePath(string path)
@@ -144,6 +146,8 @@ public partial class QuestionCreator : Node
 
     void SetPreview(bool enabled)
     {
+        if (inPreview == enabled) return;
+
         inPreview = enabled;
 
         CreatorScreen.Visible = !enabled;

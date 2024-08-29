@@ -6,7 +6,11 @@ public class QuestionBuilder
     List<IBlock> blocks = new();
 
     List<string> currentSegment = new();
+
     bool inCodeBlock = false;
+
+    Stack<(ContainerType, List<IBlock>)> containerStack = new();
+
 
     bool inAnswerBlock = false;
     AnswerType currentAnswerType = AnswerType.Empty;
@@ -29,12 +33,19 @@ public class QuestionBuilder
         FinalizeSegment();
         FinalizeAnswer();
 
+        while (containerStack.Count > 0)
+        {
+            FinalizeContainer();
+        }
+
         return new(blocks.ToArray());
     }
 
 
     void AddSegmentLine(string line)
     {
+        line = line.TrimEnd();
+
         if (inCodeBlock)
         {
             if (line == "```") SetCodeBlock(false);
@@ -43,23 +54,30 @@ public class QuestionBuilder
             return;
         }
 
-        if (line.StartsWith("# ")) AddTitleSegment(line[2..]);
-        else if (line == "---") AddLineSegment();
-        else if (line == "```") SetCodeBlock(true);
+        if (line == "```") SetCodeBlock(true);
         else if (line.StartsWith("=== ")) EnableAnswerBlock(line[4..]);
-        else AddTextSegment(line);
+        else
+        {
+            line = line.Trim();
+
+            if (line.StartsWith("# ")) AddTitleSegment(line[2..]);
+            else if (line == "---") AddLineSegment();
+            else if (line.StartsWith(">>> ")) StartContainerBlock(line[4..]);
+            else if (line == "<<<") FinalizeContainer();
+            else AddTextSegment(line);
+        }
     }
 
     void AddTitleSegment(string title)
     {
         FinalizeSegment();
-        blocks.Add(new Segment(SegmentType.Title, title));
+        AddBlockToStack(new Segment(SegmentType.Title, title));
     }
 
     void AddLineSegment()
     {
         FinalizeSegment();
-        blocks.Add(new Segment(SegmentType.Line, ""));
+        AddBlockToStack(new Segment(SegmentType.Line, ""));
     }
 
     void AddTextSegment(string text)
@@ -79,11 +97,38 @@ public class QuestionBuilder
     {
         string text = string.Join('\n', currentSegment).Trim();
 
-        if (!string.IsNullOrEmpty(text)) blocks.Add(new Segment(inCodeBlock ? SegmentType.Code : SegmentType.Text, text));
+        if (!string.IsNullOrEmpty(text))
+        {
+            AddBlockToStack(new Segment(inCodeBlock ? SegmentType.Code : SegmentType.Text, text));
+        }
 
         currentSegment.Clear();
         inCodeBlock = false;
     }
+
+
+
+    void StartContainerBlock(string stringType)
+    {
+        FinalizeSegment();
+
+        ContainerType type;
+        if (!Enum.TryParse(stringType, true, out type)) type = ContainerType.Empty;
+
+        containerStack.Push((type, new()));
+    }
+
+    void FinalizeContainer()
+    {
+        if (containerStack.Count == 0) return;
+
+        FinalizeSegment();
+        FinalizeAnswer();
+
+        (ContainerType type, List<IBlock> blocks) = containerStack.Pop();
+        AddBlockToStack(new Container(type, blocks.ToArray()));
+    }
+
 
 
     void EnableAnswerBlock(string stringType)
@@ -118,9 +163,21 @@ public class QuestionBuilder
 
     void FinalizeAnswer()
     {
-        blocks.Add(new Answer(currentAnswerType, currentAnswerOptions.ToArray()));
+        AddBlockToStack(new Answer(currentAnswerType, currentAnswerOptions.ToArray()));
 
         currentAnswerType = AnswerType.Empty;
         currentAnswerOptions.Clear();
+    }
+
+
+    void AddBlockToStack(IBlock block)
+    {
+        if (containerStack.Count == 0)
+        {
+            blocks.Add(block);
+            return;
+        }
+
+        containerStack.Peek().Item2.Add(block);
     }
 }

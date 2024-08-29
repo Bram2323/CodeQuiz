@@ -1,4 +1,4 @@
-# Wich lines can run independently?
+# Wich lines can run?
 
 ```
 public static void main(String... args){
@@ -11,9 +11,14 @@ public static void main(String... args){
 }
 ```
 
+>>> Explanation
+    Only f is assigned at the beginning
+    So line 4 and 6 try to read from an unassigned variable
+<<<
+
 === Multi
-- a = b = e
-+ c = f
-- a += b = 5
-+ d = 8 - f
+- Line 4
++ Line 5
+- Line 6
++ Line 7
 ===

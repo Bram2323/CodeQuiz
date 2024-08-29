@@ -36,6 +36,7 @@ custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 
 [node name="Line2" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mv2ih")
