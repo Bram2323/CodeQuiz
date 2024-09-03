@@ -106,8 +106,6 @@ public partial class ListAnswer : AnswerNode
 
     public override bool IsIncomplete()
     {
-        GD.Print(!AnsweredAllCorrectLines() + " | " + !AnsweredIncorrectLine());
-
         return !AnsweredAllCorrectLines() && !AnsweredIncorrectLine();
     }
 
@@ -120,7 +118,7 @@ public partial class ListAnswer : AnswerNode
     {
         foreach ((Button button, AnswerOption answer) in buttons)
         {
-            if (answer.Correct && button.Disabled) return false;
+            if (answer.Correct && !button.Disabled) return false;
         }
 
         return true;
@@ -130,7 +128,7 @@ public partial class ListAnswer : AnswerNode
     {
         foreach ((Button button, AnswerOption answer) in buttons)
         {
-            if (!answer.Correct && !button.Disabled) return true;
+            if (!answer.Correct && button.Disabled) return true;
         }
 
         return false;

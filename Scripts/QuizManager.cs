@@ -144,7 +144,7 @@ public partial class QuizManager : Node
 
         for (int i = 0; i < questions.Length; i++)
         {
-            if ((questionStatuses[questions[i]] & QuestionStatus.Incomplete) == 0)
+            if ((questionStatuses[questions[i]] & QuestionStatus.Incomplete) != 0)
             {
                 incompleteQuestions.Add(i + 1);
             }
