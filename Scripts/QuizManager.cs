@@ -61,10 +61,9 @@ public partial class QuizManager : Node
 
         foreach (Question question in questions)
         {
-            questionStatuses[question] = 0;
+            questionStatuses[question] = QuestionStatus.Incomplete;
         }
 
-        if (questions.Length == 0) return;
         LoadQuestion(0);
     }
 
@@ -100,8 +99,6 @@ public partial class QuizManager : Node
 
     void LoadQuestion(Question question)
     {
-        UpdateButtons();
-
         SaveCurrentQuestionData();
 
         QuestionScreen.LoadQuestion(question);
@@ -109,6 +106,8 @@ public partial class QuizManager : Node
         if (showAnswers) QuestionScreen.ShowAnswers();
 
         currentQuestion = question;
+
+        UpdateButtons();
     }
 
     void SaveCurrentQuestionData()
@@ -119,6 +118,7 @@ public partial class QuizManager : Node
 
         QuestionStatus status = 0;
         if (QuestionScreen.HasAnswered()) status |= QuestionStatus.Answered;
+        if (QuestionScreen.IsIncomplete()) status |= QuestionStatus.Incomplete;
         if (QuestionScreen.HasCorrectlyAnswered()) status |= QuestionStatus.Correct;
         questionStatuses[currentQuestion] = status;
     }
@@ -138,13 +138,28 @@ public partial class QuizManager : Node
         else ShowResults();
     }
 
+    int[] IncompleteQuestions()
+    {
+        List<int> incompleteQuestions = new(0);
+
+        for (int i = 0; i < questions.Length; i++)
+        {
+            if ((questionStatuses[questions[i]] & QuestionStatus.Incomplete) == 0)
+            {
+                incompleteQuestions.Add(i + 1);
+            }
+        }
+
+        return incompleteQuestions.ToArray();
+    }
+
     int[] UnansweredQuestions()
     {
         List<int> unansweredQuestions = new(0);
 
         for (int i = 0; i < questions.Length; i++)
         {
-            if ((questionStatuses[questions[i]] & QuestionStatus.Answered) != QuestionStatus.Answered)
+            if ((questionStatuses[questions[i]] & QuestionStatus.Answered) == 0)
             {
                 unansweredQuestions.Add(i + 1);
             }
@@ -155,13 +170,12 @@ public partial class QuizManager : Node
 
     public void AskToShowResults()
     {
-        if (UnansweredQuestions().Length == 0)
-        {
-            ShowResults();
-            return;
-        }
+        string text;
+        if (UnansweredQuestions().Length != 0) text = "Warning!\nSome questions are unanswered!";
+        else if (IncompleteQuestions().Length != 0) text = "Warning!\nSome questions are incomplete!";
+        else text = "Show results?";
 
-        ResultsConfirmation.DialogText = "Warning!\nSome questions are unanswered!";
+        ResultsConfirmation.DialogText = text;
         ResultsConfirmation.PopupCentered();
     }
 

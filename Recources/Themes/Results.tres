@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://cjb1h62eu4kmt"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cjb1h62eu4kmt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pj81f"]
 content_margin_left = 4.0
@@ -46,6 +46,30 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0, 0.352941, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rutev"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.55, 0.275, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehfme"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.24, 0.1716, 0.1032, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yamwj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.35, 0.175, 0, 1)
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3cdl"]
@@ -114,6 +138,10 @@ Correct/base_type = &"Button"
 Correct/styles/hover = SubResource("StyleBoxFlat_8xjb8")
 Correct/styles/normal = SubResource("StyleBoxFlat_st30y")
 Correct/styles/pressed = SubResource("StyleBoxFlat_iaq0u")
+Incomplete/base_type = &"Button"
+Incomplete/styles/hover = SubResource("StyleBoxFlat_rutev")
+Incomplete/styles/normal = SubResource("StyleBoxFlat_ehfme")
+Incomplete/styles/pressed = SubResource("StyleBoxFlat_yamwj")
 Incorrect/base_type = &"Button"
 Incorrect/styles/hover = SubResource("StyleBoxFlat_g3cdl")
 Incorrect/styles/normal = SubResource("StyleBoxFlat_7ywy8")

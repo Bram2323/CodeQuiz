@@ -8,7 +8,9 @@ public partial class ResultsScreen : Control
     PackedScene EntryPrefab;
 
     [Export]
-    Label Amount, Total, NumberText;
+    AnsweredLabel[] answeredLabels;
+    [Export]
+    ResultsLabel[] resultsLabels;
     [Export]
     Button ShowAnswersButton;
 
@@ -19,14 +21,26 @@ public partial class ResultsScreen : Control
     public override void _Ready()
     {
         ShowAnswersButton.Pressed += ShowAnswers;
+
+        foreach (AnsweredLabel label in answeredLabels)
+        {
+            label.Visible = false;
+        }
+
+        foreach (ResultsLabel label in resultsLabels)
+        {
+            label.Visible = false;
+        }
     }
 
     public void LoadQuestions(QuestionStatus[] questionsStatus, bool showAnswers, QuizManager questionManager)
     {
         ClearEntries();
 
+        int total = questionsStatus.Length;
         int correct = 0;
         int answered = 0;
+        int incomplete = 0;
 
         ShowAnswersCallback = questionManager.AskToShowResults;
 
@@ -34,8 +48,9 @@ public partial class ResultsScreen : Control
         {
             QuestionStatus status = questionsStatus[i];
 
-            if ((status & QuestionStatus.Correct) == QuestionStatus.Correct) correct++;
-            if ((status & QuestionStatus.Answered) != QuestionStatus.Answered) answered++;
+            if ((status & QuestionStatus.Correct) != 0) correct++;
+            if ((status & QuestionStatus.Answered) != 0) answered++;
+            if ((status & QuestionStatus.Incomplete) != 0) incomplete++;
 
             ResultEntry entry = EntryPrefab.Instantiate<ResultEntry>();
 
@@ -52,17 +67,32 @@ public partial class ResultsScreen : Control
 
         MoveChild(ShowAnswersButton, -1);
 
-        if (showAnswers)
+        foreach (AnsweredLabel label in answeredLabels)
         {
-            NumberText.Text = "Correct";
-            Amount.Text = correct.ToString();
+            label.SetAnswered(answered, total);
         }
-        else
+
+        foreach (ResultsLabel label in resultsLabels)
         {
-            NumberText.Text = "Answered";
-            Amount.Text = answered.ToString();
+            label.SetCorrect(correct, total);
         }
-        Total.Text = questionsStatus.Length.ToString();
+
+        ShowLabels(showAnswers);
+    }
+
+    void ShowLabels(bool showResults)
+    {
+        foreach (AnsweredLabel label in answeredLabels)
+        {
+            label.Visible = !showResults;
+        }
+
+        foreach (ResultsLabel label in resultsLabels)
+        {
+            label.Visible = showResults;
+        }
+
+        ShowAnswersButton.Disabled = showResults;
     }
 
     void ShowAnswers()

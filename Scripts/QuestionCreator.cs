@@ -69,6 +69,14 @@ public partial class QuestionCreator : Node
         }
     }
 
+    void LoadText(string text)
+    {
+        CreatorScreen.Text = text;
+        CreatorScreen.ResetHistory();
+        OnTextChange();
+        SetPreview(false);
+    }
+
     void OnTextChange()
     {
         UnsavedLabel.Visible = CreatorScreen.HasUnsavedChanges();
@@ -98,8 +106,7 @@ public partial class QuestionCreator : Node
 
     void New()
     {
-        CreatorScreen.Text = "";
-        ResetFilePath();
+        CreateNew();
     }
 
 
@@ -107,21 +114,25 @@ public partial class QuestionCreator : Node
     {
         File.WriteAllText(path, CreatorScreen.Text);
 
-        UpdateFilePath(path);
+        OnSave(path);
     }
 
     void LoadFile(string path)
     {
         if (!File.Exists(path)) return;
 
-        CreatorScreen.Text = File.ReadAllText(path);
-        CreatorScreen.ResetHistory();
+        LoadText(File.ReadAllText(path));
 
-        UpdateFilePath(path);
+        OnSave(path);
         SetPreview(false);
     }
 
-    void UpdateFilePath(string path)
+    void CreateNew()
+    {
+        LoadText("");
+    }
+
+    void OnSave(string path)
     {
         CreatorScreen.Saved();
         OnTextChange();
@@ -136,7 +147,6 @@ public partial class QuestionCreator : Node
         FileLabel.Text = "Untitled";
         currentFilePath = null;
     }
-
 
 
     void TogglePreview()

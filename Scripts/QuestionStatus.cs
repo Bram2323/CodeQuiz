@@ -1,5 +1,6 @@
 ﻿public enum QuestionStatus
 {
-    Answered = 1,
-    Correct = 2,
+    Incomplete = 0b001,
+    Answered = 0b010,
+    Correct = 0b100
 }

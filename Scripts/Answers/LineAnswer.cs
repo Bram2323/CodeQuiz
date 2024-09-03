@@ -46,6 +46,15 @@ public partial class LineAnswer : AnswerNode
         return false;
     }
 
+    public override bool IsIncomplete()
+    {
+        foreach (InputField input in inputs)
+        {
+            if (string.IsNullOrWhiteSpace(input.GetText().Trim())) return true;
+        }
+        return false;
+    }
+
     public override bool HasCorrectlyAnswered()
     {
         bool correct = true;

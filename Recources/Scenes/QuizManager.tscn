@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://chd8t6djg3lxc"]
+[gd_scene load_steps=10 format=3 uid="uid://chd8t6djg3lxc"]
 
 [ext_resource type="Script" path="res://Scripts/QuizManager.cs" id="1_k30wy"]
 [ext_resource type="Theme" uid="uid://220ch5okdli" path="res://Recources/Themes/MenuBar.tres" id="2_evfnq"]
 [ext_resource type="PackedScene" uid="uid://ceq41xiwbpupl" path="res://Recources/Scenes/Question.tscn" id="3_ulqti"]
+[ext_resource type="Script" path="res://Scripts/ResultsLabel.cs" id="7_ckdku"]
+[ext_resource type="Script" path="res://Scripts/AnsweredLabel.cs" id="7_jslup"]
 [ext_resource type="Theme" uid="uid://cjb1h62eu4kmt" path="res://Recources/Themes/Results.tres" id="13_oj2f6"]
 [ext_resource type="Script" path="res://Scripts/ResultsScreen.cs" id="14_4uihy"]
 [ext_resource type="PackedScene" uid="uid://bico54e0yy4tb" path="res://Recources/Scenes/ResultsEntry.tscn" id="14_inhhy"]
@@ -19,8 +21,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k30wy")
-QuestionScreen = NodePath("VPaddingContainer/HPaddingContainer/Question")
-ResultsScreen = NodePath("VPaddingContainer/HPaddingContainer/Results")
+QuestionScreen = NodePath("VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Question")
+ResultsScreen = NodePath("VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results")
 QuitConfirmation = NodePath("MainMenuConfirmation")
 ResultsConfirmation = NodePath("ResultsConfirmation")
 IndexEdit = NodePath("VPaddingContainer/Menu/VPadding/HPadding/LineEdit")
@@ -104,23 +106,32 @@ text = "Results"
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="TopPadding" type="Control" parent="VPaddingContainer"]
-custom_minimum_size = Vector2(0, 5)
+[node name="ScrollContainer" type="ScrollContainer" parent="VPaddingContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
 
-[node name="HPaddingContainer" type="HBoxContainer" parent="VPaddingContainer"]
+[node name="VPaddingContainer" type="VBoxContainer" parent="VPaddingContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LeftPadding" type="Control" parent="VPaddingContainer/HPaddingContainer"]
+[node name="TopPadding" type="Control" parent="VPaddingContainer/ScrollContainer/VPaddingContainer"]
+layout_mode = 2
+
+[node name="HPaddingContainer" type="HBoxContainer" parent="VPaddingContainer/ScrollContainer/VPaddingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftPadding" type="Control" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="Question" parent="VPaddingContainer/HPaddingContainer" instance=ExtResource("3_ulqti")]
+[node name="Question" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer" instance=ExtResource("3_ulqti")]
 layout_mode = 2
 
-[node name="Results" type="VBoxContainer" parent="VPaddingContainer/HPaddingContainer" node_paths=PackedStringArray("Amount", "Total", "NumberText", "ShowAnswersButton")]
+[node name="Results" type="VBoxContainer" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer" node_paths=PackedStringArray("answeredLabels", "resultsLabels", "ShowAnswersButton")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -128,49 +139,86 @@ size_flags_vertical = 3
 theme = ExtResource("13_oj2f6")
 script = ExtResource("14_4uihy")
 EntryPrefab = ExtResource("14_inhhy")
-Amount = NodePath("Header/HSpacing/Amount")
-Total = NodePath("Header/HSpacing/Total")
-NumberText = NodePath("Header/HSpacing/NumberText")
+answeredLabels = [NodePath("Header/Answered")]
+resultsLabels = [NodePath("Header/Result"), NodePath("../../../../QuestionButtons/Middle/Result")]
 ShowAnswersButton = NodePath("ShowResults")
 
-[node name="TopPadding" type="Control" parent="VPaddingContainer/HPaddingContainer/Results"]
+[node name="TopPadding" type="Control" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="Header" type="PanelContainer" parent="VPaddingContainer/HPaddingContainer/Results"]
+[node name="Header" type="PanelContainer" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results"]
 layout_mode = 2
 
-[node name="HSpacing" type="HBoxContainer" parent="VPaddingContainer/HPaddingContainer/Results/Header"]
+[node name="Label" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
-layout_mode = 2
+size_flags_horizontal = 0
 text = "Questions"
 
-[node name="Amount" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Answered" type="HBoxContainer" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header" node_paths=PackedStringArray("Amount", "Total")]
+layout_mode = 2
+size_flags_horizontal = 8
+script = ExtResource("7_jslup")
+Amount = NodePath("Amount")
+Total = NodePath("Total")
+
+[node name="Amount" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Answered"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "1
 "
 
-[node name="Slash" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Slash" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Answered"]
 layout_mode = 2
 text = "/"
 
-[node name="Total" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="Total" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Answered"]
 layout_mode = 2
 text = "100
 "
 
-[node name="NumberText" type="Label" parent="VPaddingContainer/HPaddingContainer/Results/Header/HSpacing"]
+[node name="NumberText" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Answered"]
 layout_mode = 2
 text = " Answered"
 
-[node name="ShowResults" type="Button" parent="VPaddingContainer/HPaddingContainer/Results"]
+[node name="Result" type="HBoxContainer" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header" node_paths=PackedStringArray("Amount", "Total", "Percent")]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+script = ExtResource("7_ckdku")
+Amount = NodePath("Amount")
+Total = NodePath("Total")
+Percent = NodePath("Percent")
+
+[node name="Amount" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Result"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1
+"
+
+[node name="Slash" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Result"]
+layout_mode = 2
+text = "/"
+
+[node name="Total" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Result"]
+layout_mode = 2
+text = "100
+"
+
+[node name="Correct" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Result"]
+layout_mode = 2
+text = " Correct "
+
+[node name="Percent" type="Label" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results/Header/Result"]
+layout_mode = 2
+text = "(100%)
+"
+
+[node name="ShowResults" type="Button" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer/Results"]
 layout_mode = 2
 text = "Show Results"
 
-[node name="RightPadding" type="Control" parent="VPaddingContainer/HPaddingContainer"]
+[node name="RightPadding" type="Control" parent="VPaddingContainer/ScrollContainer/VPaddingContainer/HPaddingContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
@@ -196,10 +244,55 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Previous"
 
+[node name="LeftPadding2" type="Control" parent="VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Middle" type="HBoxContainer" parent="VPaddingContainer/QuestionButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Result" type="HBoxContainer" parent="VPaddingContainer/QuestionButtons/Middle" node_paths=PackedStringArray("Amount", "Total", "Percent")]
+layout_mode = 2
+size_flags_horizontal = 6
+alignment = 1
+script = ExtResource("7_ckdku")
+Amount = NodePath("Amount")
+Total = NodePath("Total")
+Percent = NodePath("Percent")
+
+[node name="Amount" type="Label" parent="VPaddingContainer/QuestionButtons/Middle/Result"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1
+"
+
+[node name="Slash" type="Label" parent="VPaddingContainer/QuestionButtons/Middle/Result"]
+layout_mode = 2
+text = "/"
+
+[node name="Total" type="Label" parent="VPaddingContainer/QuestionButtons/Middle/Result"]
+layout_mode = 2
+text = "100
+"
+
+[node name="Correct" type="Label" parent="VPaddingContainer/QuestionButtons/Middle/Result"]
+layout_mode = 2
+text = " Correct "
+
+[node name="Percent" type="Label" parent="VPaddingContainer/QuestionButtons/Middle/Result"]
+layout_mode = 2
+text = "(100%)
+"
+
+[node name="RightPadding2" type="Control" parent="VPaddingContainer/QuestionButtons"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
 [node name="NextButton" type="Button" parent="VPaddingContainer/QuestionButtons"]
 custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 text = "Next"
 
 [node name="RightPadding" type="Control" parent="VPaddingContainer/QuestionButtons"]

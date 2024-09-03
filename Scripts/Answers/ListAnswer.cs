@@ -104,17 +104,36 @@ public partial class ListAnswer : AnswerNode
         return answered;
     }
 
+    public override bool IsIncomplete()
+    {
+        GD.Print(!AnsweredAllCorrectLines() + " | " + !AnsweredIncorrectLine());
+
+        return !AnsweredAllCorrectLines() && !AnsweredIncorrectLine();
+    }
+
     public override bool HasCorrectlyAnswered()
     {
-        foreach ((Button, AnswerOption) buttonData in buttons)
-        {
-            Button button = buttonData.Item1;
-            AnswerOption answer = buttonData.Item2;
+        return AnsweredAllCorrectLines() && !AnsweredIncorrectLine();
+    }
 
-            if (button.Disabled ^ answer.Correct) return false;
+    public bool AnsweredAllCorrectLines()
+    {
+        foreach ((Button button, AnswerOption answer) in buttons)
+        {
+            if (answer.Correct && button.Disabled) return false;
         }
 
         return true;
+    }
+
+    public bool AnsweredIncorrectLine()
+    {
+        foreach ((Button button, AnswerOption answer) in buttons)
+        {
+            if (!answer.Correct && !button.Disabled) return true;
+        }
+
+        return false;
     }
 
     public override object GetUserAnswers()

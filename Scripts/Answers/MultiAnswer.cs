@@ -59,12 +59,16 @@ public partial class MultiAnswer : AnswerNode
 
     public override bool HasAnswered()
     {
-        foreach ((Choice, bool) choiceData in choices)
+        foreach ((Choice choice, bool _) in choices)
         {
-            Choice choice = choiceData.Item1;
             if (choice.IsPressed()) return true;
         }
         return false;
+    }
+
+    public override bool IsIncomplete()
+    {
+        return !HasAnswered();
     }
 
     public override bool HasCorrectlyAnswered()

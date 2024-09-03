@@ -32,12 +32,16 @@ public partial class ResultEntry : Button
     {
         if (showAnswers)
         {
-            if ((status & QuestionStatus.Correct) == QuestionStatus.Correct) return "Correct";
+            if ((status & QuestionStatus.Correct) != 0) return "Correct";
             else return "Incorrect";
         }
         else
         {
-            if ((status & QuestionStatus.Answered) == QuestionStatus.Answered) return "Answered";
+            if ((status & QuestionStatus.Answered) != 0)
+            {
+                if ((status & QuestionStatus.Incomplete) != 0) return "Incomplete";
+                else return "Answered";
+            }
             else return "Unanswered";
         }
     }

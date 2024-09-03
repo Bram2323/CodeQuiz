@@ -58,9 +58,18 @@ public partial class QuestionScreen : Control
     {
         foreach (AnswerNode answer in answers)
         {
-            if (!answer.HasAnswered()) return false;
+            if (answer.HasAnswered()) return true;
         }
-        return true;
+        return false;
+    }
+
+    public bool IsIncomplete()
+    {
+        foreach (AnswerNode answer in answers)
+        {
+            if (!answer.HasAnswered() || answer.IsIncomplete()) return true;
+        }
+        return false;
     }
 
     public bool HasCorrectlyAnswered()
